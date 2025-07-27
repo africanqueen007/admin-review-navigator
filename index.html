@@ -1,0 +1,1617 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administrative Review Process Navigator</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, rgb(0, 125, 183) 0%, rgb(0, 105, 163) 100%);
+            padding: 30px;
+            text-align: center;
+            color: white;
+        }
+        
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+        
+        .nav-tabs {
+            display: flex;
+            background: #f8f9fa;
+            border-bottom: 2px solid #e9ecef;
+        }
+        
+        .nav-tab {
+            flex: 1;
+            padding: 20px;
+            text-align: center;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 500;
+            color: #6c757d;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-tab.active {
+            background: white;
+            color: rgb(0, 125, 183);
+            border-bottom: 3px solid rgb(0, 125, 183);
+        }
+        
+        .nav-tab:hover {
+            background: #e9ecef;
+        }
+        
+        .content {
+            padding: 30px;
+            min-height: 600px;
+        }
+        
+        .section {
+            display: none;
+        }
+        
+        .section.active {
+            display: block;
+        }
+        
+        .step-tracker {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+        
+        .step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex: 1;
+            position: relative;
+        }
+        
+        .step:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            top: 20px;
+            right: -50%;
+            width: 100%;
+            height: 2px;
+            background: #dee2e6;
+            z-index: 1;
+        }
+        
+        .step.completed::after {
+            background: #28a745;
+        }
+        
+        .step-number {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #dee2e6;
+            color: #6c757d;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 2;
+            transition: all 0.3s ease;
+        }
+        
+        .step.completed .step-number {
+            background: #28a745;
+            color: white;
+        }
+        
+        .step.current .step-number {
+            background: rgb(0, 125, 183);
+            color: white;
+            transform: scale(1.2);
+        }
+        
+        .step-title {
+            font-size: 12px;
+            text-align: center;
+            color: #6c757d;
+            font-weight: 500;
+        }
+        
+        .step.current .step-title {
+            color: rgb(0, 125, 183);
+            font-weight: bold;
+        }
+        
+        .process-card {
+            background: white;
+            border: 1px solid #e9ecef;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .process-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.15);
+        }
+        
+        .card-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .card-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin-right: 15px;
+        }
+        
+        .card-title {
+            font-size: 1.3em;
+            font-weight: 600;
+            color: #333;
+        }
+        
+        .timeline-badge {
+            background: #dc3545;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: bold;
+            margin-left: auto;
+        }
+        
+        .decision-tree {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        
+        .decision-question {
+            font-size: 1.2em;
+            font-weight: 600;
+            color: #495057;
+            margin-bottom: 15px;
+        }
+        
+        .decision-options {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .decision-btn {
+            padding: 12px 20px;
+            border: 2px solid rgb(0, 125, 183);
+            background: white;
+            color: rgb(0, 125, 183);
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .decision-btn:hover {
+            background: rgb(0, 125, 183);
+            color: white;
+            transform: translateY(-2px);
+        }
+        
+        .info-panel {
+            background: linear-gradient(135deg, rgb(0, 125, 183) 0%, rgb(0, 105, 163) 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        
+        .timeline-tracker {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        
+        .timeline-tracker h3 {
+            color: #856404;
+            margin-bottom: 15px;
+        }
+        
+        .deadline-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #ffeaa7;
+        }
+        
+        .deadline-item:last-child {
+            border-bottom: none;
+        }
+        
+        .progress-visual {
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        .progress-path {
+            display: flex;
+            align-items: center;
+            margin: 20px 0;
+        }
+        
+        .progress-node {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin: 0 10px;
+            transition: all 0.3s ease;
+        }
+        
+        .progress-connector {
+            flex: 1;
+            height: 4px;
+            background: #dee2e6;
+            margin: 0 5px;
+        }
+        
+        .glossary-term {
+            background: #e3f2fd;
+            border-left: 4px solid #2196f3;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .glossary-term h4 {
+            color: #1976d2;
+            margin-bottom: 8px;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, rgb(0, 125, 183) 0%, rgb(0, 105, 163) 100%);
+            border: none;
+            color: white;
+            padding: 12px 25px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: transform 0.3s ease;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+        }
+        
+        .alert {
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+        
+        .alert-warning {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            color: #856404;
+        }
+        
+        .alert-info {
+            background: #d1ecf1;
+            border: 1px solid #bee5eb;
+            color: #0c5460;
+        }
+        
+        .alert-success {
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+        }
+        
+        details {
+            background: #f8f9fa;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            overflow: hidden;
+        }
+        
+        summary {
+            padding: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            background: #e9ecef;
+            border-bottom: 1px solid #dee2e6;
+            color: #495057;
+        }
+        
+        details[open] summary {
+            border-bottom: 1px solid #dee2e6;
+        }
+        
+        details div {
+            padding: 15px;
+            line-height: 1.6;
+        }
+        
+        .ao-link {
+            display: flex;
+            align-items: center;
+            padding: 12px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            text-decoration: none;
+            color: #333;
+            border: 1px solid #dee2e6;
+            transition: all 0.3s ease;
+            margin-bottom: 10px;
+        }
+        
+        .ao-link:hover {
+            background: #e9ecef;
+            transform: translateX(5px);
+        }
+        
+        .ao-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-size: 18px;
+        }
+        
+        .ao-primary {
+            background: rgba(0, 125, 183, 0.1);
+            border: 2px solid rgb(0, 125, 183);
+        }
+        
+        .ao-primary:hover {
+            background: rgba(0, 125, 183, 0.2);
+        }
+        
+        .ao-primary .ao-icon {
+            background: rgb(0, 125, 183);
+            color: white;
+        }
+        
+        .ao-primary:hover .ao-icon {
+            background: rgb(0, 105, 163);
+        }
+        
+        /* Help Modal Styles */
+        .help-modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            backdrop-filter: blur(3px);
+        }
+        
+        .help-modal-content {
+            background-color: white;
+            margin: 2% auto;
+            padding: 0;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 800px;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        
+        .help-modal-header {
+            background: linear-gradient(135deg, rgb(0, 125, 183) 0%, rgb(0, 105, 163) 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 15px 15px 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .help-modal-body {
+            padding: 30px;
+            line-height: 1.6;
+        }
+        
+        .close-help {
+            color: white;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 0;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: background-color 0.3s ease;
+        }
+        
+        .close-help:hover {
+            background-color: rgba(255,255,255,0.2);
+        }
+        
+        @media (max-width: 768px) {
+            .nav-tabs {
+                flex-direction: column;
+            }
+            
+            .step-tracker {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .step::after {
+                display: none;
+            }
+            
+            .decision-options {
+                flex-direction: column;
+            }
+            
+            .progress-path {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .progress-connector {
+                width: 4px;
+                height: 30px;
+                margin: 5px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div style="display: flex; align-items: center; justify-content: center; gap: 20px; margin-bottom: 20px;">
+                <!-- LOGO SECTION -->
+                <img src="https://i.imgur.com/Ik3rKDo.jpeg" 
+                     alt="ADB Staff Association Logo" 
+                     style="width: 120px; height: 120px; object-fit: contain; border-radius: 12px; margin-right: 20px;"
+                     onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                <!-- Fallback text (will show if image fails) -->
+                <div style="color: white; font-weight: bold; font-size: 14px; text-align: center; line-height: 1.2; text-shadow: 1px 1px 2px rgba(0,0,0,0.3); display: none; width: 120px; height: 120px; background: rgba(255,255,255,0.15); border-radius: 12px; border: 2px solid rgba(255,255,255,0.3); padding: 10px; box-sizing: border-box; align-items: center; justify-content: center; flex-direction: column; margin-right: 20px;">
+                    <span>ADB STAFF</span>
+                    <span>ASSOCIATION</span>
+                </div>
+                <!-- END LOGO SECTION -->
+                
+                <div style="flex: 1;">
+                    <h1 style="margin: 0; font-size: 2.5em; font-weight: bold;">Administrative Review Navigator</h1>
+                    <p style="margin: 5px 0 0 0; font-size: 1.2em; opacity: 0.9;">Your interactive guide through the administrative review process</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="nav-tabs">
+            <button class="nav-tab active" data-tab="overview" onclick="showTab('overview', this)">📋 Process Overview</button>
+            <button class="nav-tab" data-tab="navigator" onclick="showTab('navigator', this)">🧭 Step Navigator</button>
+            <button class="nav-tab" data-tab="timeline" onclick="showTab('timeline', this)">⏰ Timeline Tracker</button>
+            <button class="nav-tab" data-tab="resources" onclick="showTab('resources', this)">📚 Resources</button>
+        </div>
+        
+        <div style="background: #f8f9fa; padding: 10px; text-align: center; border-bottom: 1px solid #dee2e6;">
+            <button onclick="toggleHelpModal()" style="background: rgb(0, 125, 183); color: white; border: none; padding: 8px 16px; border-radius: 20px; cursor: pointer; font-size: 14px; font-weight: bold;" onmouseover="this.style.background='rgb(0, 105, 163)'" onmouseout="this.style.background='rgb(0, 125, 183)'">
+                ❓ Quick Start Guide
+            </button>
+        </div>
+        
+        <div class="content">
+            <!-- Overview Section -->
+            <div id="overview" class="section active">
+                <div class="progress-visual">
+                    <h2 style="text-align: center; margin-bottom: 30px; color: #333;">Complete Administrative Review Process</h2>
+                    
+                    <div class="progress-path">
+                        <div class="progress-node" style="background: #e3f2fd; color: #1976d2;">1</div>
+                        <div class="progress-connector"></div>
+                        <div class="progress-node" style="background: #f3e5f5; color: #7b1fa2;">2</div>
+                        <div class="progress-connector"></div>
+                        <div class="progress-node" style="background: #e8f5e8; color: #388e3c;">3</div>
+                        <div class="progress-connector"></div>
+                        <div class="progress-node" style="background: #fff3e0; color: #f57c00;">4</div>
+                        <div class="progress-connector"></div>
+                        <div class="progress-node" style="background: #fce4ec; color: #c2185b;">5</div>
+                        <div class="progress-connector"></div>
+                        <div class="progress-node" style="background: #f1f8e9; color: #689f38;">6</div>
+                    </div>
+                    
+                    <div style="display: flex; justify-content: space-between; margin-top: 10px; font-size: 12px; text-align: center;">
+                        <div>Discussion</div>
+                        <div>Path Selection</div>
+                        <div>Conciliation</div>
+                        <div>Admin Review</div>
+                        <div>Appeal</div>
+                        <div>Tribunal</div>
+                    </div>
+                </div>
+                
+                <div class="alert alert-info">
+                    <strong>Important:</strong> This navigator helps you understand each step of the administrative review process. Use the Step Navigator to get personalized guidance based on your specific situation.
+                </div>
+                
+                <div class="process-card">
+                    <div class="card-header">
+                        <div class="card-icon" style="background: #e3f2fd; color: #1976d2;">📝</div>
+                        <div class="card-title">Before You Start</div>
+                    </div>
+                    <p><strong>Key Requirements:</strong></p>
+                    <ul style="margin: 10px 0 0 20px;">
+                        <li>You must have received a decision that contravenes your contract or terms of appointment</li>
+                        <li>Simple disagreement with a decision does not grant automatic right to review</li>
+                        <li>All time limits are strictly enforced</li>
+                        <li>Review requests do not suspend implementation of the decision</li>
+                    </ul>
+                </div>
+                
+                <div class="process-card">
+                    <div class="card-header">
+                        <div class="card-icon" style="background: #f3e5f5; color: #7b1fa2;">⚖️</div>
+                        <div class="card-title">Grounds for Review</div>
+                    </div>
+                    <p>Administrative review is available if the decision involves:</p>
+                    <ul style="margin: 10px 0 0 20px;">
+                        <li><strong>Abuse of discretion</strong> - Decision made improperly</li>
+                        <li><strong>Discriminatory decision</strong> - Unfair treatment based on prohibited grounds</li>
+                        <li><strong>Abuse of process</strong> - Procedural irregularities</li>
+                        <li><strong>Proper procedures not followed</strong> - Required steps were skipped</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Navigator Section -->
+            <div id="navigator" class="section">
+                <div class="step-tracker">
+                    <div class="step current" id="step-1">
+                        <div class="step-number">1</div>
+                        <div class="step-title">Initial Assessment</div>
+                    </div>
+                    <div class="step" id="step-2">
+                        <div class="step-number">2</div>
+                        <div class="step-title">Path Selection</div>
+                    </div>
+                    <div class="step" id="step-3">
+                        <div class="step-number">3</div>
+                        <div class="step-title">Formal Process</div>
+                    </div>
+                    <div class="step" id="step-4">
+                        <div class="step-number">4</div>
+                        <div class="step-title">Review/Appeal</div>
+                    </div>
+                    <div class="step" id="step-5">
+                        <div class="step-number">5</div>
+                        <div class="step-title">Final Resolution</div>
+                    </div>
+                </div>
+                
+                <div id="navigator-content">
+                    <div class="decision-tree">
+                        <div class="decision-question">📋 Have you discussed the decision with your supervisor or the decision maker?</div>
+                        <div class="decision-options">
+                            <button class="decision-btn" onclick="navigatorStep('discussion-no')">No, I haven't discussed it yet</button>
+                            <button class="decision-btn" onclick="navigatorStep('discussion-yes')">Yes, discussion didn't resolve the issue</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Timeline Section -->
+            <div id="timeline" class="section">
+                <div class="timeline-tracker">
+                    <h3>⏰ Critical Deadlines</h3>
+                    <div class="deadline-item">
+                        <span><strong>Request for Conciliation/Review:</strong></span>
+                        <span class="timeline-badge">45 days</span>
+                    </div>
+                    <div class="deadline-item">
+                        <span><strong>Conciliator Selection:</strong></span>
+                        <span class="timeline-badge">15 days</span>
+                    </div>
+                    <div class="deadline-item">
+                        <span><strong>Conciliation Process:</strong></span>
+                        <span class="timeline-badge">15 days</span>
+                    </div>
+                    <div class="deadline-item">
+                        <span><strong>Admin Review Request (after conciliation):</strong></span>
+                        <span class="timeline-badge">15 days</span>
+                    </div>
+                    <div class="deadline-item">
+                        <span><strong>Admin Review Response:</strong></span>
+                        <span class="timeline-badge">30 days</span>
+                    </div>
+                    <div class="deadline-item">
+                        <span><strong>Appeal Submission:</strong></span>
+                        <span class="timeline-badge">15 days</span>
+                    </div>
+                    <div class="deadline-item">
+                        <span><strong>Appeals Committee Report:</strong></span>
+                        <span class="timeline-badge">30 days</span>
+                    </div>
+                    <div class="deadline-item">
+                        <span><strong>Administrative Tribunal Application:</strong></span>
+                        <span class="timeline-badge">90 days</span>
+                    </div>
+                </div>
+                
+                <div class="alert alert-warning">
+                    <strong>⚠️ Important Reminder:</strong> All deadlines are strict. Missing a deadline will result in your request being time-barred and the process being deemed incomplete.
+                </div>
+                
+                <div class="process-card">
+                    <div class="card-header">
+                        <div class="card-icon" style="background: #fff3e0; color: #f57c00;">📅</div>
+                        <div class="card-title">Timeline Calculator</div>
+                    </div>
+                    <p>Enter the date you received the decision to calculate your deadlines:</p>
+                    <input type="date" id="decision-date" style="padding: 10px; border: 1px solid #ddd; border-radius: 5px; margin: 10px 0;">
+                    <button class="btn-primary" onclick="calculateDeadlines()">Calculate My Deadlines</button>
+                    <div id="calculated-deadlines" style="margin-top: 15px;"></div>
+                </div>
+            </div>
+            
+            <!-- Resources Section -->
+            <div id="resources" class="section">
+                <div class="process-card">
+                    <div class="card-header">
+                        <div class="card-icon" style="background: #fce4ec; color: #c2185b;">📋</div>
+                        <div class="card-title">Administrative Orders & Policies</div>
+                    </div>
+                    <p style="margin-bottom: 15px;">Access the official Administrative Orders that govern the review process:</p>
+                    
+                    <a href="https://asiandevbank.sharepoint.com/:b:/r/sites/ao/Shared%20Documents/AO%202.02%20-%20Code%20of%20Conduct.pdf?csf=1&web=1&e=WeCUSx" target="_blank" class="ao-link">
+                        <div class="ao-icon" style="background: #e3f2fd; color: #1976d2;">📄</div>
+                        <div>
+                            <strong>AO 2.02 - Code of Conduct</strong>
+                            <div style="font-size: 14px; color: #6c757d;">Standards of behavior and ethical guidelines</div>
+                        </div>
+                        <span style="margin-left: auto; color: rgb(0, 125, 183);">🔗</span>
+                    </a>
+                    
+                    <a href="https://asiandevbank.sharepoint.com/:b:/r/sites/ao/Shared%20Documents/AO%202.04%20-%20Disciplinary%20Procedures%20and%20Measures.pdf?csf=1&web=1&e=zqPLHn" target="_blank" class="ao-link">
+                        <div class="ao-icon" style="background: #fff3e0; color: #f57c00;">⚖️</div>
+                        <div>
+                            <strong>AO 2.04 - Disciplinary Procedures and Measures</strong>
+                            <div style="font-size: 14px; color: #6c757d;">Procedures for disciplinary actions and sanctions</div>
+                        </div>
+                        <span style="margin-left: auto; color: rgb(0, 125, 183);">🔗</span>
+                    </a>
+                    
+                    <a href="https://asiandevbank.sharepoint.com/:b:/r/sites/ao/Shared%20Documents/AO%202.05%20-%20Termination%20Policy.pdf?csf=1&web=1&e=YCbkQI" target="_blank" class="ao-link">
+                        <div class="ao-icon" style="background: #fce4ec; color: #c2185b;">📋</div>
+                        <div>
+                            <strong>AO 2.05 - Termination Policy</strong>
+                            <div style="font-size: 14px; color: #6c757d;">Policies and procedures for employment termination</div>
+                        </div>
+                        <span style="margin-left: auto; color: rgb(0, 125, 183);">🔗</span>
+                    </a>
+                    
+                    <a href="https://asiandevbank.sharepoint.com/:b:/r/sites/ao/Shared%20Documents/AO%202.06%20-%20Administrative%20Review%20and%20Appeal%20Procedures.pdf?csf=1&web=1&e=K3ZkyA" target="_blank" class="ao-link ao-primary">
+                        <div class="ao-icon">⭐</div>
+                        <div>
+                            <strong>AO 2.06 - Administrative Review and Appeal Procedures</strong>
+                            <div style="font-size: 14px; color: #2e7d32;"><strong>Primary document for this process</strong></div>
+                        </div>
+                        <span style="margin-left: auto; color: rgb(0, 125, 183);">🔗</span>
+                    </a>
+                    
+                    <a href="https://asiandevbank.sharepoint.com/:b:/r/sites/ao/Shared%20Documents/AO%202.07%20-%20Administrative%20Tribunal.pdf?csf=1&web=1&e=RLtSRg" target="_blank" class="ao-link">
+                        <div class="ao-icon" style="background: #f3e5f5; color: #7b1fa2;">🏛️</div>
+                        <div>
+                            <strong>AO 2.07 - Administrative Tribunal</strong>
+                            <div style="font-size: 14px; color: #6c757d;">Tribunal composition, procedures, and powers</div>
+                        </div>
+                        <span style="margin-left: auto; color: rgb(0, 125, 183);">🔗</span>
+                    </a>
+                    
+                    <a href="https://asiandevbank.sharepoint.com/:b:/r/sites/ao/Shared%20Documents/AO%202.10%20-%20Whistleblower%20and%20Witness%20Protection.pdf?csf=1&web=1&e=I0aXnb" target="_blank" class="ao-link">
+                        <div class="ao-icon" style="background: #e1f5fe; color: #0277bd;">🛡️</div>
+                        <div>
+                            <strong>AO 2.10 - Whistleblower and Witness Protection</strong>
+                            <div style="font-size: 14px; color: #6c757d;">Protection for reporting misconduct</div>
+                        </div>
+                        <span style="margin-left: auto; color: rgb(0, 125, 183);">🔗</span>
+                    </a>
+                    
+                    <a href="https://asiandevbank.sharepoint.com/:b:/r/sites/ao/Shared%20Documents/AO%202.14%20-%20Ombuds%20Function.pdf?csf=1&web=1&e=K0OTVu" target="_blank" class="ao-link">
+                        <div class="ao-icon" style="background: #f1f8e9; color: #689f38;">🤝</div>
+                        <div>
+                            <strong>AO 2.14 - Ombuds Function</strong>
+                            <div style="font-size: 14px; color: #6c757d;">Alternative dispute resolution and mediation</div>
+                        </div>
+                        <span style="margin-left: auto; color: rgb(0, 125, 183);">🔗</span>
+                    </a>
+                </div>
+
+                <div class="process-card">
+                    <div class="card-header">
+                        <div class="card-icon" style="background: #e1f5fe; color: #0277bd;">❓</div>
+                        <div class="card-title">Frequently Asked Questions</div>
+                    </div>
+                    
+                    <details>
+                        <summary>🔍 What types of decisions can a staff member seek administrative review or appeal for?</summary>
+                        <div>
+                            <p>A staff member can seek administrative review <strong>only for decisions that contravene their contract of employment or terms of appointment</strong>, which includes pertinent regulations and rules. Simply disagreeing with a decision is not sufficient grounds.</p>
+                            <p><strong>Grounds for administrative review include:</strong></p>
+                            <ul style="margin: 10px 0 0 20px;">
+                                <li>Abuse of discretion</li>
+                                <li>Discrimination</li>
+                                <li>Abuse of process</li>
+                                <li>Failure to follow proper procedures</li>
+                            </ul>
+                            <p><strong>For appeals concerning disciplinary measures under AO 2.04,</strong> additional grounds include the conduct not being within the scope of "misconduct" or the disciplinary measures being disproportionate.</p>
+                            <div style="background: #d1ecf1; padding: 10px; border-radius: 5px; margin-top: 10px; color: #0c5460;">
+                                <strong>Note:</strong> Appeals to the Appeals Committee can only be made after exhausting the administrative review stage, except for disciplinary measures.
+                            </div>
+                        </div>
+                    </details>
+                    
+                    <details>
+                        <summary>🤝 What is the role of the Ombudsperson (AO 2.14) in the staff grievance process?</summary>
+                        <div>
+                            <p>The Ombudsperson provides an <strong>informal grievance procedure</strong> for staff members, acting as an independent and impartial source of assistance for resolving workplace complaints through informal means such as conciliation and mediation.</p>
+                            <p><strong>Key points about the Ombudsperson:</strong></p>
+                            <ul style="margin: 10px 0 0 20px;">
+                                <li>Advocates for fair process and solutions but does not act as an advocate for any party</li>
+                                <li>Staff are <strong>not required</strong> to consult the Ombudsperson before initiating formal procedures</li>
+                                <li>Using the Ombudsperson's services does not limit access to formal procedures</li>
+                                <li>Can advise on formal process procedures but won't provide advice on complaint substance once formal process starts</li>
+                                <li>Information from the ombuds process cannot be used in formal proceedings</li>
+                                <li>Cannot address allegations of retaliation under AO 2.10 (will refer to appropriate procedures)</li>
+                            </ul>
+                        </div>
+                    </details>
+                    
+                    <details>
+                        <summary>🏢 What is the role of OPEC in the staff grievance process (AO 2.02 & 2.04)?</summary>
+                        <div>
+                            <p>The Office of Professional Ethics and Conduct (OPEC) plays a foundational role in the staff grievance process, primarily at the initial stages. It acts as a preventative, advisory, and assessment body rather than a formal appeals board.</p>
+                            <p><strong>Key functions of OPEC include:</strong></p>
+                            <ul style="margin: 10px 0 0 20px;">
+                                <li><strong>Primary Point of Contact for Ethical Guidance:</strong> Staff can seek advice regarding the Code of Conduct, potential conflicts of interest, or doubts about proper conduct</li>
+                                <li><strong>Management of Conflicts of Interest:</strong> Receives and assesses disclosures about financial interests, business activities, or personal relationships that could create conflicts</li>
+                                <li><strong>Approval Authority:</strong> Staff must get prior approval for certain external activities, such as private employment, public speaking, or accepting external gifts</li>
+                                <li><strong>Initial Handling of "Other Misconduct":</strong> Designated recipient for reports of bullying, harassment, and retaliation. Reviews reports to determine appropriate path forward</li>
+                                <li><strong>Whistleblower Protection:</strong> In coordination with OAI, protects whistleblower identities and receives retaliation notifications</li>
+                            </ul>
+                        </div>
+                    </details>
+                    
+                    <details>
+                        <summary>⚖️ What is the role of the Appeals Committee in the grievance process?</summary>
+                        <div>
+                            <p>The Appeals Committee is a body that <strong>advises the President on appeals</strong> filed by staff members. It reviews decisions and disciplinary measures to determine if ADB's Staff Regulations, Administrative Orders, policies, and procedures have been correctly applied.</p>
+                            <p><strong>Key functions:</strong></p>
+                            <ul style="margin: 10px 0 0 20px;">
+                                <li>For discretionary decisions by Heads of Department/Office, determines if there was abuse of discretion, arbitrariness, discrimination, improper motivation, or violation of fair procedure</li>
+                                <li>Cannot deal with matters under Pension Committee and/or Administration Committee authority</li>
+                                <li>Cannot challenge pertinent regulations and rules of ADB</li>
+                                <li>Appeals to Administrative Tribunal are possible after exhausting Appeals Committee stage</li>
+                            </ul>
+                        </div>
+                    </details>
+                    
+                    <details>
+                        <summary>🏛️ What is the purpose and scope of the Administrative Tribunal (AO 2.07)?</summary>
+                        <div>
+                            <p>The Administrative Tribunal (AT) is established to <strong>hear and pass judgment upon applications</strong> by current or former staff members alleging nonobservance of their contract of employment or terms of appointment.</p>
+                            <p><strong>Scope includes:</strong></p>
+                            <ul style="margin: 10px 0 0 20px;">
+                                <li>Pertinent regulations, rules, Staff Retirement Plan, and benefit plans</li>
+                                <li>Open to current and former staff members, personal representatives, and individuals entitled to SRP/benefit payments</li>
+                                <li>Generally requires exhausting all other available remedies within the Bank first</li>
+                                <li>Exception: Direct submission if applicant and President agree</li>
+                            </ul>
+                        </div>
+                    </details>
+                    
+                    <details>
+                        <summary>⚡ What are the limitations and powers of the Administrative Tribunal?</summary>
+                        <div>
+                            <p>The Tribunal has significant but defined powers:</p>
+                            <p><strong>Powers:</strong></p>
+                            <ul style="margin: 10px 0 0 20px;">
+                                <li><strong>Final and binding judgments</strong></li>
+                                <li>Can order rescission of contested decision or specific performance</li>
+                                <li>Can fix compensation (generally limited to 3 years' basic salary, higher in exceptional circumstances)</li>
+                                <li>Can order Bank to bear reasonable costs incurred by applicant</li>
+                                <li>Can order applicant to compensate Bank for defense costs if application was manifestly without foundation</li>
+                            </ul>
+                            <p><strong>Limitations:</strong></p>
+                            <ul style="margin: 10px 0 0 20px;">
+                                <li>Filing does NOT suspend execution of contested decision</li>
+                                <li>Powers do not limit or modify those of Board of Governors or Board of Directors</li>
+                            </ul>
+                        </div>
+                    </details>
+                    
+                    <details>
+                        <summary>🛡️ How does the Whistleblower and Witness Protection Administrative Order (AO 2.10) interact with the grievance procedures?</summary>
+                        <div>
+                            <p>AO 2.10 provides comprehensive protections for Whistleblowers and Witnesses who report suspected violations or misconduct, including protection from Retaliation.</p>
+                            <p><strong>Key protections:</strong></p>
+                            <ul style="margin: 10px 0 0 20px;">
+                                <li><strong>Burden of proof shift:</strong> For staff reporting retaliation where their action was a contributory factor, ADB must prove the same action would have occurred without the report</li>
+                                <li><strong>Special grievance path:</strong> Staff believing they suffered retaliation from grievance proceedings under AO 2.06/2.07 must notify OPC or OAI</li>
+                                <li><strong>Direct appeals route:</strong> Whistleblowers/Witnesses claiming retaliation may appeal Director General, BPMSD decisions directly to Appeals Committee, then to Administrative Tribunal</li>
+                            </ul>
+                            <div style="background: #fff3cd; padding: 10px; border-radius: 5px; margin-top: 10px; color: #856404;">
+                                <strong>Important:</strong> Retaliation concerns are addressed under Section 4 of AO 2.10, providing additional protection layers beyond standard grievance procedures.
+                            </div>
+                        </div>
+                    </details>
+
+                    <details>
+                        <summary>📝 What documents do I need to prepare for my request?</summary>
+                        <div>
+                            <p>Your request should be comprehensive and include all relevant documentation:</p>
+                            <p><strong>Required elements:</strong></p>
+                            <ul style="margin: 10px 0 0 20px;">
+                                <li>Clear statement of the decision being contested</li>
+                                <li>Grounds for review (abuse of discretion, discrimination, etc.)</li>
+                                <li>Copy of the contested decision</li>
+                                <li>Evidence supporting your claims</li>
+                                <li>Timeline of events</li>
+                                <li>Remedy sought</li>
+                            </ul>
+                            <div style="background: #d4edda; padding: 10px; border-radius: 5px; margin-top: 10px; color: #155724;">
+                                <strong>Tip:</strong> Use the Timeline Calculator in this navigator to ensure you meet all deadlines.
+                            </div>
+                        </div>
+                    </details>
+
+                    <details>
+                        <summary>🔄 Can I withdraw my request once it's submitted?</summary>
+                        <div>
+                            <p>Yes, you can withdraw your request at any stage of the process:</p>
+                            <ul style="margin: 10px 0 0 20px;">
+                                <li>Withdrawal must be in writing</li>
+                                <li>Once withdrawn, you cannot resubmit the same request</li>
+                                <li>Consider discussing with the Ombudsperson before withdrawing</li>
+                                <li>Withdrawal does not affect your right to pursue other available remedies within applicable deadlines</li>
+                            </ul>
+                        </div>
+                    </details>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Help Modal -->
+    <div id="helpModal" class="help-modal">
+        <div class="help-modal-content">
+            <div class="help-modal-header">
+                <h2 style="margin: 0; font-size: 1.5em;">🎯 Quick Start Guide</h2>
+                <button class="close-help" onclick="toggleHelpModal()">&times;</button>
+            </div>
+            <div class="help-modal-body">
+                <p style="font-size: 1.1em; margin-bottom: 20px; color: #495057;">
+                    New to the administrative review process? Follow these simple steps to get started:
+                </p>
+
+                <div style="background: white; border: 1px solid #e9ecef; border-radius: 15px; padding: 25px; margin-bottom: 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+                    <ol style="margin: 0; padding-left: 20px; line-height: 2; font-size: 16px;">
+                        <li style="margin-bottom: 15px;">
+                            <strong style="color: rgb(0, 125, 183);">Start with Process Overview</strong><br>
+                            <span style="color: #6c757d; font-size: 14px;">Get familiar with the overall 6-step administrative review process and understand the key requirements.</span>
+                        </li>
+                        
+                        <li style="margin-bottom: 15px;">
+                            <strong style="color: rgb(0, 125, 183);">Use the Step Navigator</strong><br>
+                            <span style="color: #6c757d; font-size: 14px;">Get personalized guidance for your specific situation. Answer simple questions to receive customized step-by-step instructions.</span>
+                        </li>
+                        
+                        <li style="margin-bottom: 15px;">
+                            <strong style="color: rgb(0, 125, 183);">Check Timeline Tracker</strong><br>
+                            <span style="color: #6c757d; font-size: 14px;">Calculate your specific deadlines using the Timeline Calculator. Enter your decision date to get all important deadlines automatically calculated.</span>
+                        </li>
+                        
+                        <li style="margin-bottom: 15px;">
+                            <strong style="color: rgb(0, 125, 183);">Read relevant FAQs</strong><br>
+                            <span style="color: #6c757d; font-size: 14px;">Find answers to common questions in the Resources section. Click on any question to expand detailed explanations.</span>
+                        </li>
+                        
+                        <li style="margin-bottom: 15px;">
+                            <strong style="color: rgb(0, 125, 183);">Download AO 2.06</strong><br>
+                            <span style="color: #6c757d; font-size: 14px;">Keep the official Administrative Review and Appeal Procedures document handy for reference (highlighted in blue in Resources).</span>
+                        </li>
+                    </ol>
+                </div>
+
+                <div style="background: rgba(0, 125, 183, 0.1); border: 1px solid rgb(0, 125, 183); border-radius: 10px; padding: 20px; margin: 20px 0;">
+                    <h4 style="color: rgb(0, 125, 183); margin: 0 0 10px 0;">💡 Pro Tips:</h4>
+                    <ul style="margin: 0; padding-left: 20px; line-height: 1.6; color: #495057;">
+                        <li><strong>Step Navigator is interactive</strong> - It remembers your choices and provides personalized guidance</li>
+                        <li><strong>All deadlines are strict</strong> - Use the Timeline Calculator to never miss important dates</li>
+                        <li><strong>Mobile-friendly</strong> - All features work perfectly on phones and tablets</li>
+                        <li><strong>You can restart anytime</strong> - Use "Start New Navigation" if your situation changes</li>
+                    </ul>
+                </div>
+
+                <div style="background: #fff3cd; border: 1px solid #ffc107; border-radius: 8px; padding: 15px; margin: 15px 0; color: #856404;">
+                    <strong>⚠️ Important:</strong> If you need legal advice about your case, please contact the staff council legal advisor: <strong>Mr. Rowan Downing - <a href="mailto:rowandowning@gmail.com" style="color: #856404; text-decoration: underline;">rowandowning@gmail.com</a> / WhatsApp: <a href="https://wa.me/41784082743" style="color: #856404; text-decoration: underline;">+41784082743</a></strong>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentStep = 1;
+        
+        function showTab(tabName, tabElement) {
+            const sections = document.querySelectorAll('.section');
+            sections.forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            const tabs = document.querySelectorAll('.nav-tab');
+            tabs.forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            document.getElementById(tabName).classList.add('active');
+            tabElement.classList.add('active');
+        }
+        
+        function toggleHelpModal() {
+            const modal = document.getElementById('helpModal');
+            if (modal.style.display === 'block') {
+                modal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            } else {
+                modal.style.display = 'block';
+                document.body.style.overflow = 'hidden';
+            }
+        }
+        
+        window.onclick = function(event) {
+            const modal = document.getElementById('helpModal');
+            if (event.target === modal) {
+                toggleHelpModal();
+            }
+        }
+        
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                const modal = document.getElementById('helpModal');
+                if (modal.style.display === 'block') {
+                    toggleHelpModal();
+                }
+            }
+        });
+        
+        function updateStepTracker(step) {
+            const steps = document.querySelectorAll('.step');
+            steps.forEach((stepElement, index) => {
+                stepElement.classList.remove('current', 'completed');
+                if (index + 1 < step) {
+                    stepElement.classList.add('completed');
+                } else if (index + 1 === step) {
+                    stepElement.classList.add('current');
+                }
+            });
+            currentStep = step;
+        }
+        
+        function navigatorStep(choice) {
+            const content = document.getElementById('navigator-content');
+            
+            switch(choice) {
+                case 'discussion-no':
+                    content.innerHTML = `
+                        <div class="info-panel">
+                            <h3>📞 Step 1: Initial Discussion</h3>
+                            <p>Before proceeding with formal review procedures, you should first attempt to resolve the issue through discussion with your supervisor or the decision maker.</p>
+                        </div>
+                        <div class="process-card">
+                            <h4>Next Steps:</h4>
+                            <ol style="margin: 10px 0 0 20px;">
+                                <li>Schedule a meeting with your supervisor or the decision maker</li>
+                                <li>Present your concerns clearly and professionally</li>
+                                <li>Document the discussion and outcome</li>
+                                <li>If unresolved, you may proceed to formal procedures</li>
+                            </ol>
+                            <button class="btn-primary" onclick="navigatorStep('discussion-completed')" style="margin-top: 15px;">Discussion Completed</button>
+                        </div>
+                    `;
+                    updateStepTracker(1);
+                    break;
+                    
+                case 'discussion-yes':
+                case 'discussion-completed':
+                    content.innerHTML = `
+                        <div class="decision-tree">
+                            <div class="decision-question">👥 Who is your immediate supervisor?</div>
+                            <div class="decision-options">
+                                <button class="decision-btn" onclick="navigatorStep('senior-supervisor')">Executive Director, Alternate Executive Director, President, or Vice President</button>
+                                <button class="decision-btn" onclick="navigatorStep('regular-supervisor')">Other supervisor/manager</button>
+                                <button class="decision-btn" onclick="navigatorStep('ombuds-consult')">I want to consult Ombudsperson first</button>
+                            </div>
+                        </div>
+                        <div class="alert alert-warning">
+                            <strong>Important:</strong> Your formal review path depends on your supervisor level. Most staff members must go through mandatory conciliation first.
+                        </div>
+                    `;
+                    updateStepTracker(2);
+                    break;
+                    
+                case 'senior-supervisor':
+                    content.innerHTML = `
+                        <div class="info-panel">
+                            <h3>🎯 Senior Level Supervisor Exception</h3>
+                            <p>Because your immediate supervisor is an Executive Director, Alternate Executive Director, President, or Vice President, you have the option to bypass mandatory conciliation.</p>
+                        </div>
+                        <div class="decision-tree">
+                            <div class="decision-question">🛤️ Which path would you like to pursue?</div>
+                            <div class="decision-options">
+                                <button class="decision-btn" onclick="navigatorStep('conciliation')">Conciliation (Still Recommended)</button>
+                                <button class="decision-btn" onclick="navigatorStep('direct-review')">Direct Administrative Review</button>
+                            </div>
+                        </div>
+                        <div class="alert alert-info">
+                            <strong>Note:</strong> Even though you can skip conciliation, it may still help resolve the issue more quickly and amicably.
+                        </div>
+                    `;
+                    updateStepTracker(2);
+                    break;
+                    
+                case 'regular-supervisor':
+                    content.innerHTML = `
+                        <div class="info-panel">
+                            <h3>📋 Mandatory Conciliation Required</h3>
+                            <p>For staff members with regular supervisors, <strong>conciliation is mandatory</strong> before proceeding to administrative review.</p>
+                        </div>
+                        <div class="process-card">
+                            <h4>Why Conciliation is Mandatory:</h4>
+                            <ul style="margin: 10px 0 0 20px;">
+                                <li>Required by Administrative Order 2.06</li>
+                                <li>Provides opportunity for early resolution</li>
+                                <li>Less formal than administrative review</li>
+                                <li>Helps preserve working relationships</li>
+                            </ul>
+                            <button class="btn-primary" onclick="navigatorStep('conciliation')" style="margin-top: 15px;">Proceed to Mandatory Conciliation</button>
+                        </div>
+                    `;
+                    updateStepTracker(2);
+                    break;
+                    
+                case 'conciliation':
+                    content.innerHTML = `
+                        <div class="info-panel">
+                            <h3>🤝 Compulsory Conciliation Process</h3>
+                            <p>Conciliation involves a neutral third party helping both sides reach a mutually acceptable solution. This is a mandatory step for most staff members.</p>
+                        </div>
+                        <div class="process-card">
+                            <h4>Step-by-Step Process:</h4>
+                            <ol style="margin: 10px 0 0 20px;">
+                                <li><strong>Submit Request:</strong> Written request to Director, HR Business Partners Division (BPHP) within 45 days</li>
+                                <li><strong>Include Copies to:</strong> Head of Department/Office responsible and concerned Director within BPMSD</li>
+                                <li><strong>Conciliator Selection:</strong> Choose from external list within 15 days</li>
+                                <li><strong>Conciliation Meetings:</strong> Process completed within 15 days (extendable by agreement)</li>
+                                <li><strong>Outcome:</strong> Settlement agreement or unsuccessful conciliation statement</li>
+                            </ol>
+                            <h4 style="margin-top: 20px;">Required Information in Request:</h4>
+                            <ul style="margin: 10px 0 0 20px;">
+                                <li>Identify the contested decision</li>
+                                <li>Grounds for review (abuse of discretion, discrimination, abuse of process, improper procedures)</li>
+                                <li>Relief/remedy sought</li>
+                            </ul>
+                            <div class="alert alert-warning">
+                                <strong>Important:</strong> Statements made during conciliation cannot be used as evidence in later proceedings.
+                            </div>
+                            <button class="btn-primary" onclick="navigatorStep('conciliation-outcome')" style="margin-top: 15px;">Continue to Conciliation Outcome</button>
+                        </div>
+                    `;
+                    updateStepTracker(3);
+                    break;
+                    
+                case 'conciliation-outcome':
+                    content.innerHTML = `
+                        <div class="decision-tree">
+                            <div class="decision-question">🎯 What was the outcome of your conciliation process?</div>
+                            <div class="decision-options">
+                                <button class="decision-btn" onclick="navigatorStep('conciliation-successful')">Successful - Issue Resolved</button>
+                                <button class="decision-btn" onclick="navigatorStep('conciliation-unsuccessful')">Unsuccessful - No Agreement Reached</button>
+                            </div>
+                        </div>
+                        <div class="alert alert-info">
+                            <strong>Note:</strong> The conciliator will provide a written statement on the outcome within 15 days of the process completion.
+                        </div>
+                    `;
+                    updateStepTracker(3);
+                    break;
+                    
+                case 'conciliation-successful':
+                    content.innerHTML = `
+                        <div class="alert alert-success">
+                            <h3>✅ Conciliation Successful!</h3>
+                            <p>Congratulations! Your issue has been resolved through the conciliation process.</p>
+                        </div>
+                        <div class="process-card">
+                            <h4>What Happens Next:</h4>
+                            <ul style="margin: 10px 0 0 20px;">
+                                <li>Settlement agreement is signed and documented</li>
+                                <li>Both parties implement the agreed resolution</li>
+                                <li>Case is closed - no further review needed</li>
+                                <li>Keep records of the agreement for your files</li>
+                            </ul>
+                            <button class="btn-primary" onclick="navigatorStep('restart')" style="margin-top: 15px;">Start New Navigation</button>
+                        </div>
+                    `;
+                    updateStepTracker(5);
+                    break;
+                    
+                case 'conciliation-unsuccessful':
+                    content.innerHTML = `
+                        <div class="info-panel">
+                            <h3>📋 Proceed to Administrative Review</h3>
+                            <p>Since conciliation was unsuccessful, you can now proceed to the administrative review stage.</p>
+                        </div>
+                        <div class="process-card">
+                            <h4>Next Steps for Administrative Review:</h4>
+                            <ol style="margin: 10px 0 0 20px;">
+                                <li><strong>Submit Request:</strong> Written request to Director General, BPMSD within <strong>15 days</strong> of receiving conciliator's statement</li>
+                                <li><strong>Scope Limitation:</strong> Review is limited to matters identified during conciliation</li>
+                                <li><strong>Response Timeline:</strong> Director General, BPMSD has 30 days to respond</li>
+                                <li><strong>Exhaustion:</strong> Administrative review is exhausted upon receiving response or after 30 days</li>
+                            </ol>
+                            <div class="alert alert-warning">
+                                <strong>Critical:</strong> You only have 15 days from receiving the conciliator's statement to submit your administrative review request!
+                            </div>
+                            <button class="btn-primary" onclick="navigatorStep('admin-review-outcome')" style="margin-top: 15px;">Continue to Administrative Review</button>
+                        </div>
+                    `;
+                    updateStepTracker(4);
+                    break;
+                    
+                case 'direct-review':
+                    content.innerHTML = `
+                        <div class="info-panel">
+                            <h3>📋 Direct Administrative Review (Senior Supervisor Exception)</h3>
+                            <p>Because your immediate supervisor is a senior executive, you can bypass mandatory conciliation and proceed directly to administrative review.</p>
+                        </div>
+                        <div class="process-card">
+                            <h4>Direct Review Process:</h4>
+                            <ol style="margin: 10px 0 0 20px;">
+                                <li><strong>Submit Request:</strong> Written request to Director General, BPMSD within <strong>45 days</strong> of receiving the decision</li>
+                                <li><strong>Required Information:</strong> Identify decision, grounds for review, supporting documentation, remedy sought</li>
+                                <li><strong>Response Timeline:</strong> Director General, BPMSD has 30 days to respond</li>
+                                <li><strong>Exhaustion:</strong> Review is exhausted upon receiving response or after 30 days</li>
+                            </ol>
+                            <h4 style="margin-top: 20px;">Grounds for Review:</h4>
+                            <ul style="margin: 10px 0 0 20px;">
+                                <li>Abuse of discretion</li>
+                                <li>Discriminatory decision</li>
+                                <li>Abuse of process</li>
+                                <li>Proper procedures not followed</li>
+                            </ul>
+                            <button class="btn-primary" onclick="navigatorStep('admin-review-outcome')" style="margin-top: 15px;">Continue to Administrative Review</button>
+                        </div>
+                    `;
+                    updateStepTracker(4);
+                    break;
+                    
+                case 'admin-review-outcome':
+                    content.innerHTML = `
+                        <div class="decision-tree">
+                            <div class="decision-question">📋 What was the outcome of your administrative review?</div>
+                            <div class="decision-options">
+                                <button class="decision-btn" onclick="navigatorStep('admin-review-satisfied')">Satisfied with the Decision</button>
+                                <button class="decision-btn" onclick="navigatorStep('admin-review-appeal')">Not Satisfied - Want to Appeal</button>
+                                <button class="decision-btn" onclick="navigatorStep('no-response')">No Response Received (30 days passed)</button>
+                            </div>
+                        </div>
+                        <div class="alert alert-info">
+                            <strong>Administrative Review Exhausted:</strong> Administrative review is considered exhausted when you receive the Director General, BPMSD's response OR when 30 days have passed without a response.
+                        </div>
+                    `;
+                    updateStepTracker(4);
+                    break;
+                    
+                case 'admin-review-satisfied':
+                    content.innerHTML = `
+                        <div class="alert alert-success">
+                            <h3>✅ Administrative Review Successful!</h3>
+                            <p>Great! Your administrative review has resulted in a satisfactory resolution.</p>
+                        </div>
+                        <div class="process-card">
+                            <h4>What Happens Next:</h4>
+                            <ul style="margin: 10px 0 0 20px;">
+                                <li>Decision is implemented as per the review outcome</li>
+                                <li>Keep documentation of the resolution</li>
+                                <li>Monitor implementation of any corrective actions</li>
+                                <li>Case is closed</li>
+                            </ul>
+                            <button class="btn-primary" onclick="navigatorStep('restart')" style="margin-top: 15px;">Start New Navigation</button>
+                        </div>
+                    `;
+                    updateStepTracker(5);
+                    break;
+                    
+                case 'admin-review-appeal':
+                case 'no-response':
+                    content.innerHTML = `
+                        <div class="info-panel">
+                            <h3>⚖️ Appeal to Appeals Committee</h3>
+                            <p>Since administrative review has been exhausted and you're not satisfied, you can now appeal to the Appeals Committee.</p>
+                        </div>
+                        <div class="process-card">
+                            <h4>Appeal Process:</h4>
+                            <ol style="margin: 10px 0 0 20px;">
+                                <li><strong>Submit Appeal:</strong> Through Secretary, Appeals Committee within <strong>15 days</strong> of administrative review exhaustion</li>
+                                <li><strong>Committee Review:</strong> Three-member panel considers your appeal</li>
+                                <li><strong>Committee Report:</strong> Submitted to President within 30 days</li>
+                                <li><strong>Presidential Decision:</strong> President makes final decision on appeal</li>
+                            </ol>
+                            <h4 style="margin-top: 20px;">Appeals Committee Composition:</h4>
+                            <ul style="margin: 10px 0 0 20px;">
+                                <li>Staff members appointed by the President</li>
+                                <li>Members nominated by Staff Council</li>
+                                <li>Panel of three (Chairperson + two Members)</li>
+                            </ul>
+                            <div class="alert alert-warning">
+                                <strong>Important:</strong> Submission of appeal does NOT suspend implementation of the contested decision.
+                            </div>
+                            <button class="btn-primary" onclick="navigatorStep('appeals-outcome')" style="margin-top: 15px;">Continue to Appeals Outcome</button>
+                        </div>
+                    `;
+                    updateStepTracker(4);
+                    break;
+                    
+                case 'appeals-outcome':
+                    content.innerHTML = `
+                        <div class="decision-tree">
+                            <div class="decision-question">🏛️ What was the outcome of the Presidential decision on your appeal?</div>
+                            <div class="decision-options">
+                                <button class="decision-btn" onclick="navigatorStep('appeal-satisfied')">Satisfied with Presidential Decision</button>
+                                <button class="decision-btn" onclick="navigatorStep('tribunal-application')">Not Satisfied - Apply to Administrative Tribunal</button>
+                            </div>
+                        </div>
+                        <div class="alert alert-info">
+                            <strong>Final Internal Step:</strong> The Presidential decision represents the final internal review within ADB. The Administrative Tribunal is external and independent.
+                        </div>
+                    `;
+                    updateStepTracker(4);
+                    break;
+                    
+                case 'appeal-satisfied':
+                    content.innerHTML = `
+                        <div class="alert alert-success">
+                            <h3>✅ Appeal Successful!</h3>
+                            <p>Excellent! The Presidential decision on your appeal has resolved your concerns.</p>
+                        </div>
+                        <div class="process-card">
+                            <h4>What Happens Next:</h4>
+                            <ul style="margin: 10px 0 0 20px;">
+                                <li>Presidential decision is implemented</li>
+                                <li>Any remedial actions are carried out</li>
+                                <li>Keep documentation of the final decision</li>
+                                <li>Internal review process is complete</li>
+                            </ul>
+                            <button class="btn-primary" onclick="navigatorStep('restart')" style="margin-top: 15px;">Start New Navigation</button>
+                        </div>
+                    `;
+                    updateStepTracker(5);
+                    break;
+                    
+                case 'tribunal-application':
+                    content.innerHTML = `
+                        <div class="info-panel">
+                            <h3>⚖️ Administrative Tribunal Application</h3>
+                            <p>The Administrative Tribunal is the final level of review - an independent external body with binding decision-making authority.</p>
+                        </div>
+                        <div class="process-card">
+                            <h4>Tribunal Application Requirements:</h4>
+                            <ul style="margin: 10px 0 0 20px;">
+                                <li><strong>Deadline:</strong> <span style="color: #dc3545; font-weight: bold;">90 days</span> from receipt of Presidential decision on appeal</li>
+                                <li><strong>Prerequisite:</strong> Must have exhausted all internal remedies</li>
+                                <li><strong>Filing:</strong> In accordance with Tribunal's Statute and Rules of Procedure</li>
+                                <li><strong>Fees:</strong> Tribunal fees may apply</li>
+                                <li><strong>Representation:</strong> Legal representation permitted</li>
+                            </ul>
+                            <h4 style="margin-top: 20px;">Tribunal Process:</h4>
+                            <ul style="margin: 10px 0 0 20px;">
+                                <li>Five-member tribunal (panels of three)</li>
+                                <li>Independent and impartial members</li>
+                                <li>Formal legal proceedings</li>
+                                <li>Written and oral submissions</li>
+                                <li><strong>Final and binding</strong> judgments</li>
+                            </ul>
+                            <h4 style="margin-top: 20px;">Possible Tribunal Orders:</h4>
+                            <ul style="margin: 10px 0 0 20px;">
+                                <li>Rescission of contested decision</li>
+                                <li>Specific performance of obligations</li>
+                                <li>Compensation (generally limited to 3 years' basic salary)</li>
+                                <li>Coverage of reasonable costs</li>
+                            </ul>
+                            <div class="alert alert-warning">
+                                <strong>Important:</strong> Filing with Tribunal does NOT suspend execution of the contested decision. Tribunal judgments are final and binding.
+                            </div>
+                            <button class="btn-primary" onclick="navigatorStep('final-resolution')" style="margin-top: 15px;">Complete Process</button>
+                        </div>
+                    `;
+                    updateStepTracker(5);
+                    break;
+                    
+                case 'final-resolution':
+                    content.innerHTML = `
+                        <div class="info-panel">
+                            <h3>🎯 Final Resolution</h3>
+                            <p>You've reached the final stages of the administrative review process.</p>
+                        </div>
+                        <div class="process-card">
+                            <h4>Possible Outcomes:</h4>
+                            <ul style="margin: 10px 0 0 20px;">
+                                <li><strong>Favorable Decision:</strong> Your concerns are addressed and remedy provided</li>
+                                <li><strong>Partial Resolution:</strong> Some issues resolved, others may require further action</li>
+                                <li><strong>Unfavorable Decision:</strong> Decision upheld, limited further options</li>
+                            </ul>
+                            <h4 style="margin-top: 20px;">Important Reminders:</h4>
+                            <ul style="margin: 10px 0 0 20px;">
+                                <li>Keep detailed records of all proceedings</li>
+                                <li>Understand your rights under any final decision</li>
+                                <li>Consider lessons learned for future situations</li>
+                            </ul>
+                            <button class="btn-primary" onclick="navigatorStep('restart')" style="margin-top: 15px;">Start New Navigation</button>
+                        </div>
+                    `;
+                    updateStepTracker(5);
+                    break;
+                    
+                case 'ombuds-consult':
+                    content.innerHTML = `
+                        <div class="info-panel">
+                            <h3>🤝 Ombudsperson Consultation (AO 2.14)</h3>
+                            <p>The Ombudsperson provides an independent and impartial source of assistance for resolving workplace complaints through informal means.</p>
+                        </div>
+                        <div class="process-card">
+                            <h4>What the Ombudsperson Can Do:</h4>
+                            <ul style="margin: 10px 0 0 20px;">
+                                <li><strong>Confidential consultation</strong> - Completely private discussions</li>
+                                <li><strong>Process guidance</strong> - Advise on formal procedures available</li>
+                                <li><strong>Informal resolution</strong> - Conciliation and mediation services</li>
+                                <li><strong>Fair process advocacy</strong> - Ensures fair treatment for all parties</li>
+                                <li><strong>No formal barriers</strong> - Using ombuds services doesn't limit formal options</li>
+                            </ul>
+                            
+                            <h4 style="margin-top: 20px;">Important Limitations:</h4>
+                            <ul style="margin: 10px 0 0 20px;">
+                                <li>Cannot make binding decisions or override management</li>
+                                <li>Does not act as advocate for any specific party</li>
+                                <li>Cannot address retaliation allegations (refers to AO 2.10 procedures)</li>
+                                <li>Won't provide advice on complaint substance once formal process starts</li>
+                                <li>Information from ombuds process cannot be used in formal proceedings</li>
+                            </ul>
+                            
+                            <div class="alert alert-success">
+                                <strong>✅ Recommended:</strong> Consulting the Ombudsperson can help you understand your options and potentially resolve issues informally before pursuing formal procedures.
+                            </div>
+                            
+                            <div class="decision-tree">
+                                <div class="decision-question">After consulting with the Ombudsperson, what would you like to do?</div>
+                                <div class="decision-options">
+                                    <button class="decision-btn" onclick="navigatorStep('ombuds-resolved')">Issue was resolved through Ombudsperson</button>
+                                    <button class="decision-btn" onclick="navigatorStep('ombuds-to-formal')">Need to proceed with formal review process</button>
+                                    <button class="decision-btn" onclick="navigatorStep('ombuds-need-more-time')">Need more time to consider options</button>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    updateStepTracker(2);
+                    break;
+                    
+                case 'ombuds-resolved':
+                    content.innerHTML = `
+                        <div class="alert alert-success">
+                            <h3>✅ Issue Resolved Through Ombudsperson!</h3>
+                            <p>Excellent! The Ombudsperson was able to help resolve your workplace issue informally.</p>
+                        </div>
+                        <div class="process-card">
+                            <h4>Benefits of Informal Resolution:</h4>
+                            <ul style="margin: 10px 0 0 20px;">
+                                <li>Faster resolution than formal procedures</li>
+                                <li>Preserved working relationships</li>
+                                <li>Confidential process</li>
+                                <li>No formal record of dispute</li>
+                                <li>Avoided lengthy formal proceedings</li>
+                            </ul>
+                            <div class="alert alert-info">
+                                <strong>Remember:</strong> If similar issues arise in the future, you can always contact the Ombudsperson again or pursue formal procedures if needed.
+                            </div>
+                            <button class="btn-primary" onclick="navigatorStep('restart')" style="margin-top: 15px;">Start New Navigation</button>
+                        </div>
+                    `;
+                    updateStepTracker(5);
+                    break;
+                    
+                case 'ombuds-to-formal':
+                    content.innerHTML = `
+                        <div class="info-panel">
+                            <h3>📋 Proceed to Formal Review Process</h3>
+                            <p>Since the Ombudsperson consultation didn't resolve your issue, you can now proceed with the formal administrative review process.</p>
+                        </div>
+                        <div class="process-card">
+                            <h4>✅ Your Rights Are Preserved:</h4>
+                            <ul style="margin: 10px 0 0 20px;">
+                                <li>Consulting the Ombudsperson does NOT affect your formal rights</li>
+                                <li>All formal deadlines remain the same (45 days from original decision)</li>
+                                <li>Information from ombuds process cannot be used against you</li>
+                                <li>You maintain full access to all formal procedures</li>
+                            </ul>
+                            
+                            <div class="alert alert-warning">
+                                <strong>⏰ Time Reminder:</strong> Remember that your 45-day deadline for formal review still runs from when you received the original decision, not from your Ombudsperson consultation.
+                            </div>
+                        </div>
+                        
+                        <div class="decision-tree">
+                            <div class="decision-question">👥 Now, to determine your formal review path - who is your immediate supervisor?</div>
+                            <div class="decision-options">
+                                <button class="decision-btn" onclick="navigatorStep('senior-supervisor')">Executive Director, Alternate Executive Director, President, or Vice President</button>
+                                <button class="decision-btn" onclick="navigatorStep('regular-supervisor')">Other supervisor/manager</button>
+                            </div>
+                        </div>
+                    `;
+                    updateStepTracker(2);
+                    break;
+                    
+                case 'ombuds-need-more-time':
+                    content.innerHTML = `
+                        <div class="info-panel">
+                            <h3>⏱️ Taking Time to Consider Your Options</h3>
+                            <p>It's wise to carefully consider your options after consulting with the Ombudsperson.</p>
+                        </div>
+                        <div class="process-card">
+                            <h4>⚠️ Critical Deadline Reminder:</h4>
+                            <div class="alert alert-warning">
+                                <strong>You have 45 days from receiving the original decision to submit a formal review request.</strong> This deadline does NOT pause while you consider your options.
+                            </div>
+                            
+                            <h4 style="margin-top: 20px;">Your Options Moving Forward:</h4>
+                            <ul style="margin: 10px 0 0 20px;">
+                                <li><strong>Continue informal resolution</strong> - Work with Ombudsperson on alternative solutions</li>
+                                <li><strong>Proceed with formal review</strong> - Submit formal request within deadline</li>
+                                <li><strong>Accept the decision</strong> - Choose not to pursue further action</li>
+                                <li><strong>Seek additional guidance</strong> - Continue discussions with Ombudsperson or trusted advisors</li>
+                            </ul>
+                            
+                            <div class="alert alert-info">
+                                <strong>💡 Suggestion:</strong> Use the Timeline Calculator in this navigator to see exactly how much time you have left to make your decision.
+                            </div>
+                            
+                            <div class="decision-tree">
+                                <div class="decision-question">What would you like to do next?</div>
+                                <div class="decision-options">
+                                    <button class="decision-btn" onclick="navigatorStep('ombuds-to-formal')">Proceed with formal review process</button>
+                                    <button class="decision-btn" onclick="showTab('timeline', document.querySelector('[data-tab=timeline]'))">Check my deadlines in Timeline Calculator</button>
+                                    <button class="decision-btn" onclick="navigatorStep('restart')">Start over with a new situation</button>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    updateStepTracker(2);
+                    break;
+                    
+                case 'restart':
+                    content.innerHTML = `
+                        <div class="decision-tree">
+                            <div class="decision-question">📋 Have you discussed the decision with your supervisor or the decision maker?</div>
+                            <div class="decision-options">
+                                <button class="decision-btn" onclick="navigatorStep('discussion-no')">No, I haven't discussed it yet</button>
+                                <button class="decision-btn" onclick="navigatorStep('discussion-yes')">Yes, discussion didn't resolve the issue</button>
+                            </div>
+                        </div>
+                    `;
+                    updateStepTracker(1);
+                    break;
+                    
+                default:
+                    content.innerHTML = `
+                        <div class="alert alert-warning">
+                            <h3>⚠️ Navigation Error</h3>
+                            <p>Sorry, there was an issue with the navigation. Please try again or start over.</p>
+                            <button class="btn-primary" onclick="navigatorStep('restart')" style="margin-top: 15px;">Start Over</button>
+                        </div>
+                    `;
+                    break;
+            }
+        }
+        
+        function calculateDeadlines() {
+            const decisionDate = document.getElementById('decision-date').value;
+            if (!decisionDate) {
+                alert('Please select the date you received the decision.');
+                return;
+            }
+            
+            const startDate = new Date(decisionDate);
+            const deadlines = document.getElementById('calculated-deadlines');
+            
+            const conciliationDeadline = new Date(startDate);
+            conciliationDeadline.setDate(startDate.getDate() + 45);
+            
+            const conciliatorSelectionDeadline = new Date(conciliationDeadline);
+            conciliatorSelectionDeadline.setDate(conciliationDeadline.getDate() + 15);
+            
+            const tribunalDeadline = new Date(startDate);
+            tribunalDeadline.setDate(startDate.getDate() + 90);
+            
+            deadlines.innerHTML = `
+                <div class="alert alert-info">
+                    <h4>📅 Your Calculated Deadlines:</h4>
+                    <ul style="margin: 10px 0 0 20px;">
+                        <li><strong>Conciliation/Review Request:</strong> By ${conciliationDeadline.toLocaleDateString()}</li>
+                        <li><strong>Conciliator Selection:</strong> By ${conciliatorSelectionDeadline.toLocaleDateString()}</li>
+                        <li><strong>Administrative Tribunal:</strong> By ${tribunalDeadline.toLocaleDateString()}</li>
+                    </ul>
+                    <p style="margin-top: 10px; color: #dc3545;"><strong>⚠️ All deadlines are strict and cannot be extended!</strong></p>
+                </div>
+            `;
+        }
+    </script>
+</body>
+</html>
