@@ -45,6 +45,16 @@
             opacity: 0.9;
         }
         
+        .disclaimer {
+            background: #fff3cd;
+            border: 2px solid #ffc107;
+            padding: 20px;
+            margin: 0;
+            color: #856404;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+        
         .nav-tabs {
             display: flex;
             background: #f8f9fa;
@@ -547,6 +557,11 @@
             </div>
         </div>
         
+        <!-- Disclaimer Section -->
+        <div class="disclaimer">
+            <strong>Disclaimer:</strong> <em>BPMSD has not been in a position to endorse the accuracy of the information presented in the administrative review process navigator application, nor does it warrant the accuracy, completeness, or reliability of the information presented therein. The application is a simplified, non-authoritative reference concerning AO 2.06 and related procedures, and does not constitute legal advice. Any applicable rules and procedures prevail in all instances. Staff are responsible for ensuring compliance and must seek formal guidance through appropriate channels when uncertain.</em>
+        </div>
+        
         <div class="nav-tabs">
             <button class="nav-tab active" data-tab="overview" onclick="showTab('overview', this)">📋 Process Overview</button>
             <button class="nav-tab" data-tab="navigator" onclick="showTab('navigator', this)">🧭 Step Navigator</button>
@@ -568,7 +583,7 @@
                     
                     <!-- Standard Process Path -->
                     <div style="background: #f8f9fa; border-radius: 10px; padding: 20px; margin-bottom: 20px;">
-                        <h3 style="color: rgb(0, 125, 183); margin-bottom: 15px;">📋 Standard Administrative Decisions</h3>
+                        <h3 style="color: rgb(0, 125, 183); margin-bottom: 15px;">📋 Administrative Review of Decisions</h3>
                         <div class="progress-path">
                             <div class="progress-node" style="background: #e3f2fd; color: #1976d2;">1</div>
                             <div class="progress-connector"></div>
@@ -631,6 +646,7 @@
                         <li>Simple disagreement with a decision does not grant automatic right to review</li>
                         <li>All time limits are strictly enforced</li>
                         <li>Review requests do not suspend implementation of the decision</li>
+                        <li>This process excludes matters falling under the authority of the Administration Committee in accordance with Article 8 of the Staff Retirement Plan (SRP)</li>
                     </ul>
                 </div>
                 
@@ -650,7 +666,7 @@
                     <div style="background: #fff3e0; border: 1px solid #ffcc02; border-radius: 8px; padding: 15px; margin: 15px 0;">
                         <h4 style="color: #e65100; margin: 0 0 10px 0;">🚨 Additional Grounds for Disciplinary Measures (AO 2.04):</h4>
                         <ul style="margin: 0; padding-left: 20px; color: #bf360c;">
-                            <li><strong>Conduct not within scope of "misconduct"</strong> - The alleged conduct doesn't meet the definition under AO 2.04</li>
+                            <li><strong>Conduct not within scope of "misconduct"</strong> - The alleged conduct doesn't meet the definition under AO 2.02</li>
                             <li><strong>Disciplinary measures not proportionate</strong> - The punishment doesn't fit the seriousness of the misconduct</li>
                         </ul>
                         <div style="background: #e3f2fd; border-left: 4px solid #2196f3; padding: 10px; margin-top: 10px; border-radius: 0 4px 4px 0;">
@@ -705,39 +721,39 @@
                     <h3>⏰ Critical Deadlines</h3>
                     <div class="deadline-item">
                         <span><strong>Request for Conciliation/Review (Standard):</strong></span>
-                        <span class="timeline-badge">45 days</span>
+                        <span class="timeline-badge">45 calendar days</span>
                     </div>
                     <div class="deadline-item" style="background: #fff3e0; border-left: 4px solid #ff9800; padding-left: 10px;">
                         <span><strong>🚨 Appeal for Disciplinary Measures (Direct):</strong></span>
-                        <span class="timeline-badge" style="background: #e65100;">30 days</span>
+                        <span class="timeline-badge" style="background: #e65100;">30 calendar days</span>
                     </div>
                     <div class="deadline-item">
                         <span><strong>Conciliator Selection:</strong></span>
-                        <span class="timeline-badge">15 days</span>
+                        <span class="timeline-badge">15 calendar days</span>
                     </div>
                     <div class="deadline-item">
                         <span><strong>Conciliation Process:</strong></span>
-                        <span class="timeline-badge">15 days</span>
+                        <span class="timeline-badge">15 calendar days</span>
                     </div>
                     <div class="deadline-item">
                         <span><strong>Admin Review Request (after conciliation):</strong></span>
-                        <span class="timeline-badge">15 days</span>
+                        <span class="timeline-badge">15 calendar days</span>
                     </div>
                     <div class="deadline-item">
                         <span><strong>Admin Review Response:</strong></span>
-                        <span class="timeline-badge">30 days</span>
+                        <span class="timeline-badge">30 calendar days</span>
                     </div>
                     <div class="deadline-item">
                         <span><strong>Appeal Submission (Standard):</strong></span>
-                        <span class="timeline-badge">15 days</span>
+                        <span class="timeline-badge">15 calendar days</span>
                     </div>
                     <div class="deadline-item">
-                        <span><strong>Appeals Committee Report:</strong></span>
-                        <span class="timeline-badge">30 days</span>
+                        <span><strong>Appeals Committee Report (from completion of AC proceedings):</strong></span>
+                        <span class="timeline-badge">30 calendar days</span>
                     </div>
                     <div class="deadline-item">
                         <span><strong>Administrative Tribunal Application:</strong></span>
-                        <span class="timeline-badge">90 days</span>
+                        <span class="timeline-badge">90 calendar days</span>
                     </div>
                 </div>
                 
@@ -1002,7 +1018,7 @@
                             <p><strong>Key protections:</strong></p>
                             <ul style="margin: 10px 0 0 20px;">
                                 <li><strong>Burden of proof shift:</strong> For staff reporting retaliation where their action was a contributory factor, ADB must prove the same action would have occurred without the report</li>
-                                <li><strong>Special grievance path:</strong> Staff believing they suffered retaliation from grievance proceedings under AO 2.06/2.07 must notify OPC or OAI</li>
+                                <li><strong>Special grievance path:</strong> Staff believing they suffered retaliation from grievance proceedings under AO 2.06/2.07 must notify OPEC or OAI</li>
                                 <li><strong>Direct appeals route:</strong> Whistleblowers/Witnesses claiming retaliation may appeal Director General, BPMSD decisions directly to Appeals Committee, then to Administrative Tribunal</li>
                             </ul>
                             <div style="background: #fff3cd; padding: 10px; border-radius: 5px; margin-top: 10px; color: #856404;">
@@ -1186,7 +1202,7 @@
                             <h4>📋 Special Provisions for Disciplinary Measures:</h4>
                             <ul style="margin: 10px 0 0 20px;">
                                 <li><strong>Direct Appeal Route:</strong> Skip conciliation and administrative review</li>
-                                <li><strong>Timeline:</strong> 30 days from receipt of disciplinary decision</li>
+                                <li><strong>Timeline:</strong> 30 calendar days from receipt of disciplinary decision</li>
                                 <li><strong>Additional Grounds:</strong> Conduct not within scope of "misconduct" OR disciplinary measures not proportionate</li>
                                 <li><strong>Regular Grounds:</strong> Abuse of discretion, discrimination, abuse of process, improper procedures</li>
                             </ul>
@@ -1194,13 +1210,13 @@
                             <h4 style="margin-top: 20px;">⚖️ Grounds Specific to Disciplinary Measures:</h4>
                             <div style="background: #fff3e0; border-left: 4px solid #ff9800; padding: 15px; margin: 10px 0; border-radius: 0 8px 8px 0;">
                                 <ul style="margin: 0; padding-left: 20px;">
-                                    <li><strong>Conduct was not within the scope of "misconduct"</strong> as contemplated by AO 2.04</li>
+                                    <li><strong>Conduct was not within the scope of "misconduct"</strong> as contemplated by AO 2.02</li>
                                     <li><strong>Disciplinary measures were not proportionate</strong> to the seriousness of the misconduct</li>
                                 </ul>
                             </div>
                             
                             <div class="alert alert-warning">
-                                <strong>⏰ Critical Deadline:</strong> You have only <strong>30 days</strong> from receipt of the disciplinary decision to submit your appeal - this is shorter than the standard 45-day deadline for other decisions.
+                                <strong>⏰ Critical Deadline:</strong> You have only <strong>30 calendar days</strong> from receipt of the disciplinary decision to submit your appeal - this is shorter than the standard 45-calendar-day deadline for other decisions.
                             </div>
                         </div>
                         
@@ -1226,7 +1242,7 @@
                         <div class="process-card">
                             <h4>📋 Appeals Committee Process for Disciplinary Measures:</h4>
                             <ol style="margin: 10px 0 0 20px;">
-                                <li><strong>Submit Statement of Appeal:</strong> Through Secretary, Appeals Committee within <strong>30 days</strong> of receiving disciplinary decision</li>
+                                <li><strong>Submit Statement of Appeal:</strong> Through Secretary, Appeals Committee within <strong>30 calendar days</strong> of receiving disciplinary decision</li>
                                 <li><strong>Required Information:</strong>
                                     <ul style="margin: 5px 0 0 20px;">
                                         <li>The disciplinary measure being appealed</li>
@@ -1236,7 +1252,7 @@
                                     </ul>
                                 </li>
                                 <li><strong>Panel Assignment:</strong> Three-member Appeals Committee panel considers your case</li>
-                                <li><strong>Committee Report:</strong> Submitted to President within 30 days</li>
+                                <li><strong>Committee Report:</strong> Submitted to President within 30 calendar days</li>
                                 <li><strong>Presidential Decision:</strong> Final decision on your appeal</li>
                             </ol>
                             
@@ -1252,7 +1268,7 @@
                                 
                                 <strong style="color: #e65100;">Special Disciplinary Grounds:</strong>
                                 <ul style="margin: 5px 0 0 20px; color: #bf360c;">
-                                    <li>Conduct was not within scope of "misconduct" (AO 2.04)</li>
+                                    <li>Conduct was not within scope of "misconduct" (AO 2.02)</li>
                                     <li>Disciplinary measures not proportionate to misconduct</li>
                                 </ul>
                             </div>
@@ -1283,7 +1299,7 @@
                             </ol>
                             
                             <div class="alert alert-warning">
-                                <strong>⏰ Time Management:</strong> Remember that your 30-day deadline for appealing to the Appeals Committee continues to run during informal discussions. Don't let informal attempts cause you to miss the deadline!
+                                <strong>⏰ Time Management:</strong> Remember that your 30-calendar-day deadline for appealing to the Appeals Committee continues to run during informal discussions. Don't let informal attempts cause you to miss the deadline!
                             </div>
                             
                             <h4 style="margin-top: 20px;">💡 Benefits of Informal Discussion:</h4>
@@ -1300,257 +1316,6 @@
                     updateStepTracker(1);
                     break;
                     
-                case 'disciplinary-opec-mediation':
-                    content.innerHTML = `
-                        <div class="info-panel">
-                            <h3>🤝 OPEC Workplace Mediation for Disciplinary Measures</h3>
-                            <p>Since June 2022, the Office of Professional Ethics and Conduct (OPEC) offers external professional workplace mediation services - a free, voluntary, and confidential way to resolve workplace concerns.</p>
-                        </div>
-                        <div class="process-card">
-                            <h4>🎯 What is OPEC Workplace Mediation?</h4>
-                            <ul style="margin: 10px 0 0 20px;">
-                                <li><strong>Independent mediation:</strong> Neutral mediator facilitates discussion between parties</li>
-                                <li><strong>Free service:</strong> No cost to staff members</li>
-                                <li><strong>Voluntary participation:</strong> All parties must agree to participate</li>
-                                <li><strong>Confidential process:</strong> Safe space for honest discussion</li>
-                                <li><strong>Early resolution focus:</strong> Address concerns before they escalate</li>
-                                <li><strong>Staff control:</strong> You control the resolution of your workplace issues</li>
-                            </ul>
-                            
-                            <h4 style="margin-top: 20px;">💡 Benefits of OPEC Mediation:</h4>
-                            <ul style="margin: 10px 0 0 20px;">
-                                <li>Greater understanding of the situation and others involved</li>
-                                <li>Opportunity to reach mutually acceptable agreements</li>
-                                <li>Transform relationships and improve communication</li>
-                                <li>Resolve concerns in neutral, private environment</li>
-                                <li>High satisfaction rates among participants</li>
-                            </ul>
-                            
-                            <div class="alert alert-warning">
-                                <strong>⏰ Critical Timing:</strong> Remember that your 30-day deadline for appeals to the Appeals Committee continues during OPEC mediation. Don't let mediation cause you to miss your deadline!
-                            </div>
-                            
-                            <div class="alert alert-info">
-                                <strong>📋 Available to:</strong> All ADB and ADBI staff regardless of level or location since June 2022.
-                            </div>
-                            
-                            <div class="decision-tree">
-                                <div class="decision-question">After using OPEC mediation services for your disciplinary matter, what was the outcome?</div>
-                                <div class="decision-options">
-                                    <button class="decision-btn" onclick="navigatorStep('disciplinary-opec-resolved')">Issue was resolved through OPEC mediation</button>
-                                    <button class="decision-btn" onclick="navigatorStep('direct-disciplinary-appeal')">Mediation unsuccessful - proceed with formal appeal</button>
-                                    <button class="decision-btn" onclick="navigatorStep('disciplinary-need-more-time')">Need more time to consider next steps</button>
-                                </div>
-                            </div>
-                        </div>
-                    `;
-                    updateStepTracker(2);
-                    break;
-                    
-                case 'disciplinary-opec-resolved':
-                    content.innerHTML = `
-                        <div class="alert alert-success">
-                            <h3>✅ Disciplinary Issue Resolved Through OPEC Mediation!</h3>
-                            <p>Excellent! OPEC's professional mediation services helped facilitate a resolution of your disciplinary matter.</p>
-                        </div>
-                        <div class="process-card">
-                            <h4>📋 Benefits of OPEC Mediation Resolution:</h4>
-                            <ul style="margin: 10px 0 0 20px;">
-                                <li><strong>Professional facilitation:</strong> External mediator guided the resolution</li>
-                                <li><strong>Confidential process:</strong> Private and safe discussion environment</li>
-                                <li><strong>Relationship improvement:</strong> Enhanced communication and understanding</li>
-                                <li><strong>Staff-controlled outcome:</strong> You had control over the resolution</li>
-                                <li><strong>No formal proceedings:</strong> Avoided lengthy formal appeal process</li>
-                                <li><strong>Faster resolution:</strong> Quicker than formal procedures</li>
-                            </ul>
-                            
-                            <div class="alert alert-info">
-                                <strong>💡 Follow-up:</strong> Document any agreements reached and monitor their implementation. OPEC mediation empowers lasting solutions through improved communication.
-                            </div>
-                            
-                            <button class="btn-primary" onclick="navigatorStep('restart')" style="margin-top: 15px;">Start New Navigation</button>
-                        </div>
-                    `;
-                    updateStepTracker(5);
-                    break;
-                    
-                case 'opec-mediation-consult':
-                    content.innerHTML = `
-                        <div class="info-panel">
-                            <h3>🤝 OPEC Workplace Mediation Services</h3>
-                            <p>Since June 2022, the Office of Professional Ethics and Conduct (OPEC) offers external professional workplace mediation - a powerful tool for resolving workplace concerns early and amicably.</p>
-                        </div>
-                        <div class="process-card">
-                            <h4>🎯 What Makes OPEC Mediation Special?</h4>
-                            <ul style="margin: 10px 0 0 20px;">
-                                <li><strong>Professional external mediators:</strong> Independent, neutral third parties</li>
-                                <li><strong>Completely free service:</strong> No cost to any staff member</li>
-                                <li><strong>Purely voluntary:</strong> All parties must agree to participate</li>
-                                <li><strong>Confidential and safe:</strong> Private environment for honest discussion</li>
-                                <li><strong>Flexible process:</strong> Adapted to your specific workplace concern</li>
-                                <li><strong>Available to all:</strong> ADB and ADBI staff regardless of level or location</li>
-                            </ul>
-                            
-                            <h4 style="margin-top: 20px;">🔄 How OPEC Mediation Works:</h4>
-                            <ol style="margin: 10px 0 0 20px;">
-                                <li><strong>Request mediation:</strong> Contact OPEC to request mediation services</li>
-                                <li><strong>Agreement to participate:</strong> All parties must voluntarily agree</li>
-                                <li><strong>Professional mediation:</strong> Independent mediator facilitates discussion</li>
-                                <li><strong>Safe communication:</strong> Neutral space for listening and being heard</li>
-                                <li><strong>Mutual resolution:</strong> Work toward mutually acceptable solutions</li>
-                            </ol>
-                            
-                            <h4 style="margin-top: 20px;">✨ Why Choose OPEC Mediation?</h4>
-                            <div style="background: #e8f5e8; border-left: 4px solid #4caf50; padding: 15px; margin: 10px 0; border-radius: 0 8px 8px 0;">
-                                <ul style="margin: 0; padding-left: 20px;">
-                                    <li>Most participants gain greater understanding of situations</li>
-                                    <li>High success rate in reaching agreements</li>
-                                    <li>High satisfaction with the mediation process</li>
-                                    <li>Transforms relationships and improves communication</li>
-                                    <li>Gives staff control over resolution of workplace issues</li>
-                                    <li>Prevents small differences from becoming big problems</li>
-                                </ul>
-                            </div>
-                            
-                            <div class="alert alert-warning">
-                                <strong>⏰ Time Management:</strong> Remember that your formal review deadlines (45 days for standard decisions, 30 days for disciplinary measures) continue during mediation. Plan accordingly!
-                            </div>
-                            
-                            <div class="decision-tree">
-                                <div class="decision-question">After using OPEC mediation services, what was the outcome?</div>
-                                <div class="decision-options">
-                                    <button class="decision-btn" onclick="navigatorStep('opec-mediation-resolved')">Issue was resolved through OPEC mediation</button>
-                                    <button class="decision-btn" onclick="navigatorStep('opec-to-formal')">Mediation unsuccessful - need formal review process</button>
-                                    <button class="decision-btn" onclick="navigatorStep('opec-need-more-time')">Need more time to consider options</button>
-                                </div>
-                            </div>
-                        </div>
-                    `;
-                    updateStepTracker(2);
-                    break;
-                    
-                case 'opec-mediation-resolved':
-                    content.innerHTML = `
-                        <div class="alert alert-success">
-                            <h3>✅ Issue Resolved Through OPEC Mediation!</h3>
-                            <p>Outstanding! OPEC's professional workplace mediation services successfully helped resolve your workplace concern.</p>
-                        </div>
-                        <div class="process-card">
-                            <h4>🎯 Advantages of OPEC Mediation Resolution:</h4>
-                            <ul style="margin: 10px 0 0 20px;">
-                                <li><strong>Professional guidance:</strong> Expert mediator facilitated the process</li>
-                                <li><strong>Relationship transformation:</strong> Improved communication and understanding</li>
-                                <li><strong>Confidential resolution:</strong> Private, safe space for honest discussion</li>
-                                <li><strong>Staff empowerment:</strong> You maintained control over the resolution</li>
-                                <li><strong>Early intervention:</strong> Resolved concern before escalation</li>
-                                <li><strong>No formal record:</strong> Avoided formal grievance procedures</li>
-                                <li><strong>Sustainable solution:</strong> Built on mutual understanding and agreement</li>
-                            </ul>
-                            
-                            <div class="alert alert-success">
-                                <strong>🤝 Success Story:</strong> You've experienced firsthand how professional mediation can transform workplace relationships and create lasting solutions. This approach often leads to stronger working relationships and better communication going forward.
-                            </div>
-                            
-                            <div class="alert alert-info">
-                                <strong>💡 Remember:</strong> OPEC mediation is always available for future workplace concerns. This positive experience shows the value of early intervention through professional mediation services.
-                            </div>
-                            
-                            <button class="btn-primary" onclick="navigatorStep('restart')" style="margin-top: 15px;">Start New Navigation</button>
-                        </div>
-                    `;
-                    updateStepTracker(5);
-                    break;
-                    
-                case 'opec-to-formal':
-                    content.innerHTML = `
-                        <div class="info-panel">
-                            <h3>📋 Proceed to Formal Review Process After OPEC Mediation</h3>
-                            <p>While OPEC mediation didn't resolve your issue, the process may have provided valuable insights. You can now proceed with the formal administrative review process.</p>
-                        </div>
-                        <div class="process-card">
-                            <h4>✅ Your Rights Remain Protected:</h4>
-                            <ul style="margin: 10px 0 0 20px;">
-                                <li><strong>No impact on formal rights:</strong> OPEC mediation doesn't affect your formal review rights</li>
-                                <li><strong>Confidentiality maintained:</strong> Information from mediation cannot be used against you</li>
-                                <li><strong>Deadlines unchanged:</strong> Original deadlines still apply (45 days from decision received)</li>
-                                <li><strong>Full access preserved:</strong> All formal procedures remain available</li>
-                                <li><strong>Insights gained:</strong> Better understanding from mediation process</li>
-                            </ul>
-                            
-                            <h4 style="margin-top: 20px;">💡 Value of the Mediation Experience:</h4>
-                            <div style="background: #f0f8ff; border-left: 4px solid #2196f3; padding: 15px; margin: 10px 0; border-radius: 0 8px 8px 0;">
-                                <ul style="margin: 0; padding-left: 20px;">
-                                    <li>Greater understanding of all perspectives involved</li>
-                                    <li>Clearer identification of core issues</li>
-                                    <li>Better preparation for formal procedures if needed</li>
-                                    <li>Demonstrated good-faith effort to resolve informally</li>
-                                </ul>
-                            </div>
-                            
-                            <div class="alert alert-warning">
-                                <strong>⏰ Time Reminder:</strong> Your formal review deadline still runs from when you received the original decision, not from when mediation concluded.
-                            </div>
-                        </div>
-                        
-                        <div class="decision-tree">
-                            <div class="decision-question">👥 To determine your formal review path - who is your immediate supervisor?</div>
-                            <div class="decision-options">
-                                <button class="decision-btn" onclick="navigatorStep('senior-supervisor')">Executive Director, Alternate Executive Director, President, or Vice President</button>
-                                <button class="decision-btn" onclick="navigatorStep('regular-supervisor')">Other supervisor/manager</button>
-                            </div>
-                        </div>
-                    `;
-                    updateStepTracker(2);
-                    break;
-                    
-                case 'opec-need-more-time':
-                    content.innerHTML = `
-                        <div class="info-panel">
-                            <h3>⏱️ Considering Options After OPEC Mediation</h3>
-                            <p>Taking time to reflect on the mediation experience and consider your next steps is important, but be mindful of formal review deadlines.</p>
-                        </div>
-                        <div class="process-card">
-                            <div class="alert alert-warning" style="margin: 0 0 20px 0;">
-                                <strong>⚠️ DEADLINE REMINDER:</strong><br>
-                                Your formal review deadlines continue to run from when you received the original decision:<br>
-                                • <strong>45 days</strong> for standard administrative decisions<br>
-                                • <strong>30 days</strong> for disciplinary measures
-                            </div>
-                            
-                            <h4>🎯 Reflecting on Your OPEC Mediation Experience:</h4>
-                            <ul style="margin: 10px 0 0 20px;">
-                                <li><strong>What insights did you gain?</strong> Better understanding of the situation</li>
-                                <li><strong>What communication improved?</strong> Enhanced dialogue between parties</li>
-                                <li><strong>What issues remain unresolved?</strong> Core concerns that need formal review</li>
-                                <li><strong>What relationships were affected?</strong> Impact on working relationships</li>
-                            </ul>
-                            
-                            <h4 style="margin-top: 20px;">🔄 Your Remaining Options:</h4>
-                            <ul style="margin: 10px 0 0 20px;">
-                                <li><strong>Proceed with formal review:</strong> Submit formal request within deadline</li>
-                                <li><strong>Try additional mediation:</strong> Request follow-up mediation sessions</li>
-                                <li><strong>Consult Ombudsperson:</strong> Get additional perspective on options</li>
-                                <li><strong>Accept the situation:</strong> Choose not to pursue further action</li>
-                                <li><strong>Seek legal advice:</strong> Consult with staff council legal advisor</li>
-                            </ul>
-                            
-                            <div class="alert alert-info">
-                                <strong>💡 Recommendation:</strong> Use the Timeline Calculator to see exactly how much time remains for formal procedures, and consider how the mediation experience informs your next steps.
-                            </div>
-                            
-                            <div class="decision-tree">
-                                <div class="decision-question">What would you like to do next?</div>
-                                <div class="decision-options">
-                                    <button class="decision-btn" onclick="navigatorStep('opec-to-formal')">Proceed with formal review process</button>
-                                    <button class="decision-btn" onclick="showTab('timeline', document.querySelector('[data-tab=timeline]'))">Check my deadlines in Timeline Calculator</button>
-                                    <button class="decision-btn" onclick="navigatorStep('restart')">Start over with new situation</button>
-                                </div>
-                            </div>
-                        </div>
-                    `;
-                    updateStepTracker(2);
-                    break;
-                    
                 case 'disciplinary-discussion-outcome':
                     content.innerHTML = `
                         <div class="decision-tree">
@@ -1563,7 +1328,7 @@
                             </div>
                         </div>
                         <div class="alert alert-info">
-                            <strong>Remember:</strong> Your 30-day deadline for appeals continues to run regardless of informal discussion outcomes.
+                            <strong>Remember:</strong> Your 30-calendar-day deadline for appeals continues to run regardless of informal discussion outcomes.
                         </div>
                     `;
                     updateStepTracker(2);
@@ -1661,6 +1426,80 @@
                     updateStepTracker(5);
                     break;
                     
+                case 'disciplinary-opec-mediation':
+                    content.innerHTML = `
+                        <div class="info-panel">
+                            <h3>🤝 OPEC Workplace Mediation for Disciplinary Measures</h3>
+                            <p>Since June 2022, the Office of Professional Ethics and Conduct (OPEC) offers external professional workplace mediation services - a free, voluntary, and confidential way to resolve workplace concerns.</p>
+                        </div>
+                        <div class="process-card">
+                            <h4>🎯 What is OPEC Workplace Mediation?</h4>
+                            <ul style="margin: 10px 0 0 20px;">
+                                <li><strong>Independent mediation:</strong> Neutral mediator facilitates discussion between parties</li>
+                                <li><strong>Free service:</strong> No cost to staff members</li>
+                                <li><strong>Voluntary participation:</strong> All parties must agree to participate</li>
+                                <li><strong>Confidential process:</strong> Safe space for honest discussion</li>
+                                <li><strong>Early resolution focus:</strong> Address concerns before they escalate</li>
+                                <li><strong>Staff control:</strong> You control the resolution of your workplace issues</li>
+                            </ul>
+                            
+                            <h4 style="margin-top: 20px;">💡 Benefits of OPEC Mediation:</h4>
+                            <ul style="margin: 10px 0 0 20px;">
+                                <li>Greater understanding of the situation and others involved</li>
+                                <li>Opportunity to reach mutually acceptable agreements</li>
+                                <li>Transform relationships and improve communication</li>
+                                <li>Resolve concerns in neutral, private environment</li>
+                                <li>High satisfaction rates among participants</li>
+                            </ul>
+                            
+                            <div class="alert alert-warning">
+                                <strong>⏰ Critical Timing:</strong> Remember that your 30-day deadline for appeals to the Appeals Committee continues during OPEC mediation. Don't let mediation cause you to miss your deadline!
+                            </div>
+                            
+                            <div class="alert alert-info">
+                                <strong>📋 Available to:</strong> All ADB and ADBI staff regardless of level or location since June 2022.
+                            </div>
+                            
+                            <div class="decision-tree">
+                                <div class="decision-question">After using OPEC mediation services for your disciplinary matter, what was the outcome?</div>
+                                <div class="decision-options">
+                                    <button class="decision-btn" onclick="navigatorStep('disciplinary-opec-resolved')">Issue was resolved through OPEC mediation</button>
+                                    <button class="decision-btn" onclick="navigatorStep('direct-disciplinary-appeal')">Mediation unsuccessful - proceed with formal appeal</button>
+                                    <button class="decision-btn" onclick="navigatorStep('disciplinary-need-more-time')">Need more time to consider next steps</button>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    updateStepTracker(2);
+                    break;
+                    
+                case 'disciplinary-opec-resolved':
+                    content.innerHTML = `
+                        <div class="alert alert-success">
+                            <h3>✅ Disciplinary Issue Resolved Through OPEC Mediation!</h3>
+                            <p>Excellent! OPEC's professional mediation services helped facilitate a resolution of your disciplinary matter.</p>
+                        </div>
+                        <div class="process-card">
+                            <h4>📋 Benefits of OPEC Mediation Resolution:</h4>
+                            <ul style="margin: 10px 0 0 20px;">
+                                <li><strong>Professional facilitation:</strong> External mediator guided the resolution</li>
+                                <li><strong>Confidential process:</strong> Private and safe discussion environment</li>
+                                <li><strong>Relationship improvement:</strong> Enhanced communication and understanding</li>
+                                <li><strong>Staff-controlled outcome:</strong> You had control over the resolution</li>
+                                <li><strong>No formal proceedings:</strong> Avoided lengthy formal appeal process</li>
+                                <li><strong>Faster resolution:</strong> Quicker than formal procedures</li>
+                            </ul>
+                            
+                            <div class="alert alert-info">
+                                <strong>💡 Follow-up:</strong> Document any agreements reached and monitor their implementation. OPEC mediation empowers lasting solutions through improved communication.
+                            </div>
+                            
+                            <button class="btn-primary" onclick="navigatorStep('restart')" style="margin-top: 15px;">Start New Navigation</button>
+                        </div>
+                    `;
+                    updateStepTracker(5);
+                    break;
+                    
                 case 'disciplinary-need-more-time':
                     content.innerHTML = `
                         <div class="info-panel">
@@ -1670,7 +1509,7 @@
                         <div class="process-card">
                             <div class="alert alert-warning" style="margin: 0 0 20px 0;">
                                 <strong>🚨 URGENT DEADLINE REMINDER:</strong><br>
-                                You have only <strong>30 days from receiving the disciplinary decision</strong> to submit an appeal to the Appeals Committee. This deadline does NOT pause while you consider your options.
+                                You have only <strong>30 calendar days from receiving the disciplinary decision</strong> to submit an appeal to the Appeals Committee. This deadline does NOT pause while you consider your options.
                             </div>
                             
                             <h4>🎯 Your Remaining Options:</h4>
@@ -1762,17 +1601,6 @@
                                 <li><strong>Order record correction:</strong> Update personnel files appropriately</li>
                                 <li><strong>Cost awards:</strong> May order ADB to pay your reasonable legal costs</li>
                             </ul>
-                            
-                            <h4 style="margin-top: 20px;">🎯 Grounds Tribunal May Consider:</h4>
-                            <div style="background: #f8f9fa; border-radius: 8px; padding: 15px; margin: 10px 0;">
-                                <ul style="margin: 0; padding-left: 20px;">
-                                    <li>All standard administrative grounds (abuse of discretion, discrimination, etc.)</li>
-                                    <li>Conduct not within scope of "misconduct" under AO 2.04</li>
-                                    <li>Disciplinary measures disproportionate to misconduct</li>
-                                    <li>Procedural violations in disciplinary process</li>
-                                    <li>Due process violations</li>
-                                </ul>
-                            </div>
                             
                             <div class="alert alert-warning">
                                 <strong>Important:</strong> Filing with Tribunal does NOT suspend execution of the disciplinary measure. Tribunal judgments are final and binding on both parties.
@@ -1879,289 +1707,6 @@
                     updateStepTracker(2);
                     break;
                     
-                case 'conciliation':
-                    content.innerHTML = `
-                        <div class="info-panel">
-                            <h3>🤝 Compulsory Conciliation Process</h3>
-                            <p>Conciliation involves a neutral third party helping both sides reach a mutually acceptable solution. This is a mandatory step for most staff members.</p>
-                        </div>
-                        <div class="process-card">
-                            <h4>Step-by-Step Process:</h4>
-                            <ol style="margin: 10px 0 0 20px;">
-                                <li><strong>Submit Request:</strong> Written request to Director, HR Business Partners Division (BPHP) within 45 days</li>
-                                <li><strong>Include Copies to:</strong> Head of Department/Office responsible and concerned Director within BPMSD</li>
-                                <li><strong>Conciliator Selection:</strong> Choose from external list within 15 days</li>
-                                <li><strong>Conciliation Meetings:</strong> Process completed within 15 days (extendable by agreement)</li>
-                                <li><strong>Outcome:</strong> Settlement agreement or unsuccessful conciliation statement</li>
-                            </ol>
-                            <h4 style="margin-top: 20px;">Required Information in Request:</h4>
-                            <ul style="margin: 10px 0 0 20px;">
-                                <li>Identify the contested decision</li>
-                                <li>Grounds for review (abuse of discretion, discrimination, abuse of process, improper procedures)</li>
-                                <li>Relief/remedy sought</li>
-                            </ul>
-                            <div class="alert alert-warning">
-                                <strong>Important:</strong> Statements made during conciliation cannot be used as evidence in later proceedings.
-                            </div>
-                            <button class="btn-primary" onclick="navigatorStep('conciliation-outcome')" style="margin-top: 15px;">Continue to Conciliation Outcome</button>
-                        </div>
-                    `;
-                    updateStepTracker(3);
-                    break;
-                    
-                case 'conciliation-outcome':
-                    content.innerHTML = `
-                        <div class="decision-tree">
-                            <div class="decision-question">🎯 What was the outcome of your conciliation process?</div>
-                            <div class="decision-options">
-                                <button class="decision-btn" onclick="navigatorStep('conciliation-successful')">Successful - Issue Resolved</button>
-                                <button class="decision-btn" onclick="navigatorStep('conciliation-unsuccessful')">Unsuccessful - No Agreement Reached</button>
-                            </div>
-                        </div>
-                        <div class="alert alert-info">
-                            <strong>Note:</strong> The conciliator will provide a written statement on the outcome within 15 days of the process completion.
-                        </div>
-                    `;
-                    updateStepTracker(3);
-                    break;
-                    
-                case 'conciliation-successful':
-                    content.innerHTML = `
-                        <div class="alert alert-success">
-                            <h3>✅ Conciliation Successful!</h3>
-                            <p>Congratulations! Your issue has been resolved through the conciliation process.</p>
-                        </div>
-                        <div class="process-card">
-                            <h4>What Happens Next:</h4>
-                            <ul style="margin: 10px 0 0 20px;">
-                                <li>Settlement agreement is signed and documented</li>
-                                <li>Both parties implement the agreed resolution</li>
-                                <li>Case is closed - no further review needed</li>
-                                <li>Keep records of the agreement for your files</li>
-                            </ul>
-                            <button class="btn-primary" onclick="navigatorStep('restart')" style="margin-top: 15px;">Start New Navigation</button>
-                        </div>
-                    `;
-                    updateStepTracker(5);
-                    break;
-                    
-                case 'conciliation-unsuccessful':
-                    content.innerHTML = `
-                        <div class="info-panel">
-                            <h3>📋 Proceed to Administrative Review</h3>
-                            <p>Since conciliation was unsuccessful, you can now proceed to the administrative review stage.</p>
-                        </div>
-                        <div class="process-card">
-                            <h4>Next Steps for Administrative Review:</h4>
-                            <ol style="margin: 10px 0 0 20px;">
-                                <li><strong>Submit Request:</strong> Written request to Director General, BPMSD within <strong>15 days</strong> of receiving conciliator's statement</li>
-                                <li><strong>Scope Limitation:</strong> Review is limited to matters identified during conciliation</li>
-                                <li><strong>Response Timeline:</strong> Director General, BPMSD has 30 days to respond</li>
-                                <li><strong>Exhaustion:</strong> Administrative review is exhausted upon receiving response or after 30 days</li>
-                            </ol>
-                            <div class="alert alert-warning">
-                                <strong>Critical:</strong> You only have 15 days from receiving the conciliator's statement to submit your administrative review request!
-                            </div>
-                            <button class="btn-primary" onclick="navigatorStep('admin-review-outcome')" style="margin-top: 15px;">Continue to Administrative Review</button>
-                        </div>
-                    `;
-                    updateStepTracker(4);
-                    break;
-                    
-                case 'direct-review':
-                    content.innerHTML = `
-                        <div class="info-panel">
-                            <h3>📋 Direct Administrative Review (Senior Supervisor Exception)</h3>
-                            <p>Because your immediate supervisor is a senior executive, you can bypass mandatory conciliation and proceed directly to administrative review.</p>
-                        </div>
-                        <div class="process-card">
-                            <h4>Direct Review Process:</h4>
-                            <ol style="margin: 10px 0 0 20px;">
-                                <li><strong>Submit Request:</strong> Written request to Director General, BPMSD within <strong>45 days</strong> of receiving the decision</li>
-                                <li><strong>Required Information:</strong> Identify decision, grounds for review, supporting documentation, remedy sought</li>
-                                <li><strong>Response Timeline:</strong> Director General, BPMSD has 30 days to respond</li>
-                                <li><strong>Exhaustion:</strong> Review is exhausted upon receiving response or after 30 days</li>
-                            </ol>
-                            <h4 style="margin-top: 20px;">Grounds for Review:</h4>
-                            <ul style="margin: 10px 0 0 20px;">
-                                <li>Abuse of discretion</li>
-                                <li>Discriminatory decision</li>
-                                <li>Abuse of process</li>
-                                <li>Proper procedures not followed</li>
-                            </ul>
-                            <button class="btn-primary" onclick="navigatorStep('admin-review-outcome')" style="margin-top: 15px;">Continue to Administrative Review</button>
-                        </div>
-                    `;
-                    updateStepTracker(4);
-                    break;
-                    
-                case 'admin-review-outcome':
-                    content.innerHTML = `
-                        <div class="decision-tree">
-                            <div class="decision-question">📋 What was the outcome of your administrative review?</div>
-                            <div class="decision-options">
-                                <button class="decision-btn" onclick="navigatorStep('admin-review-satisfied')">Satisfied with the Decision</button>
-                                <button class="decision-btn" onclick="navigatorStep('admin-review-appeal')">Not Satisfied - Want to Appeal</button>
-                                <button class="decision-btn" onclick="navigatorStep('no-response')">No Response Received (30 days passed)</button>
-                            </div>
-                        </div>
-                        <div class="alert alert-info">
-                            <strong>Administrative Review Exhausted:</strong> Administrative review is considered exhausted when you receive the Director General, BPMSD's response OR when 30 days have passed without a response.
-                        </div>
-                    `;
-                    updateStepTracker(4);
-                    break;
-                    
-                case 'admin-review-satisfied':
-                    content.innerHTML = `
-                        <div class="alert alert-success">
-                            <h3>✅ Administrative Review Successful!</h3>
-                            <p>Great! Your administrative review has resulted in a satisfactory resolution.</p>
-                        </div>
-                        <div class="process-card">
-                            <h4>What Happens Next:</h4>
-                            <ul style="margin: 10px 0 0 20px;">
-                                <li>Decision is implemented as per the review outcome</li>
-                                <li>Keep documentation of the resolution</li>
-                                <li>Monitor implementation of any corrective actions</li>
-                                <li>Case is closed</li>
-                            </ul>
-                            <button class="btn-primary" onclick="navigatorStep('restart')" style="margin-top: 15px;">Start New Navigation</button>
-                        </div>
-                    `;
-                    updateStepTracker(5);
-                    break;
-                    
-                case 'admin-review-appeal':
-                case 'no-response':
-                    content.innerHTML = `
-                        <div class="info-panel">
-                            <h3>⚖️ Appeal to Appeals Committee</h3>
-                            <p>Since administrative review has been exhausted and you're not satisfied, you can now appeal to the Appeals Committee.</p>
-                        </div>
-                        <div class="process-card">
-                            <h4>Appeal Process:</h4>
-                            <ol style="margin: 10px 0 0 20px;">
-                                <li><strong>Submit Appeal:</strong> Through Secretary, Appeals Committee within <strong>15 days</strong> of administrative review exhaustion</li>
-                                <li><strong>Committee Review:</strong> Three-member panel considers your appeal</li>
-                                <li><strong>Committee Report:</strong> Submitted to President within 30 days</li>
-                                <li><strong>Presidential Decision:</strong> President makes final decision on appeal</li>
-                            </ol>
-                            <h4 style="margin-top: 20px;">Appeals Committee Composition:</h4>
-                            <ul style="margin: 10px 0 0 20px;">
-                                <li>Staff members appointed by the President</li>
-                                <li>Members nominated by Staff Council</li>
-                                <li>Panel of three (Chairperson + two Members)</li>
-                            </ul>
-                            <div class="alert alert-warning">
-                                <strong>Important:</strong> Submission of appeal does NOT suspend implementation of the contested decision.
-                            </div>
-                            <button class="btn-primary" onclick="navigatorStep('appeals-outcome')" style="margin-top: 15px;">Continue to Appeals Outcome</button>
-                        </div>
-                    `;
-                    updateStepTracker(4);
-                    break;
-                    
-                case 'appeals-outcome':
-                    content.innerHTML = `
-                        <div class="decision-tree">
-                            <div class="decision-question">🏛️ What was the outcome of the Presidential decision on your appeal?</div>
-                            <div class="decision-options">
-                                <button class="decision-btn" onclick="navigatorStep('appeal-satisfied')">Satisfied with Presidential Decision</button>
-                                <button class="decision-btn" onclick="navigatorStep('tribunal-application')">Not Satisfied - Apply to Administrative Tribunal</button>
-                            </div>
-                        </div>
-                        <div class="alert alert-info">
-                            <strong>Final Internal Step:</strong> The Presidential decision represents the final internal review within ADB. The Administrative Tribunal is external and independent.
-                        </div>
-                    `;
-                    updateStepTracker(4);
-                    break;
-                    
-                case 'appeal-satisfied':
-                    content.innerHTML = `
-                        <div class="alert alert-success">
-                            <h3>✅ Appeal Successful!</h3>
-                            <p>Excellent! The Presidential decision on your appeal has resolved your concerns.</p>
-                        </div>
-                        <div class="process-card">
-                            <h4>What Happens Next:</h4>
-                            <ul style="margin: 10px 0 0 20px;">
-                                <li>Presidential decision is implemented</li>
-                                <li>Any remedial actions are carried out</li>
-                                <li>Keep documentation of the final decision</li>
-                                <li>Internal review process is complete</li>
-                            </ul>
-                            <button class="btn-primary" onclick="navigatorStep('restart')" style="margin-top: 15px;">Start New Navigation</button>
-                        </div>
-                    `;
-                    updateStepTracker(5);
-                    break;
-                    
-                case 'tribunal-application':
-                    content.innerHTML = `
-                        <div class="info-panel">
-                            <h3>⚖️ Administrative Tribunal Application</h3>
-                            <p>The Administrative Tribunal is the final level of review - an independent external body with binding decision-making authority.</p>
-                        </div>
-                        <div class="process-card">
-                            <h4>Tribunal Application Requirements:</h4>
-                            <ul style="margin: 10px 0 0 20px;">
-                                <li><strong>Deadline:</strong> <span style="color: #dc3545; font-weight: bold;">90 days</span> from receipt of Presidential decision on appeal</li>
-                                <li><strong>Prerequisite:</strong> Must have exhausted all internal remedies</li>
-                                <li><strong>Filing:</strong> In accordance with Tribunal's Statute and Rules of Procedure</li>
-                                <li><strong>Fees:</strong> Tribunal fees may apply</li>
-                                <li><strong>Representation:</strong> Legal representation permitted</li>
-                            </ul>
-                            <h4 style="margin-top: 20px;">Tribunal Process:</h4>
-                            <ul style="margin: 10px 0 0 20px;">
-                                <li>Five-member tribunal (panels of three)</li>
-                                <li>Independent and impartial members</li>
-                                <li>Formal legal proceedings</li>
-                                <li>Written and oral submissions</li>
-                                <li><strong>Final and binding</strong> judgments</li>
-                            </ul>
-                            <h4 style="margin-top: 20px;">Possible Tribunal Orders:</h4>
-                            <ul style="margin: 10px 0 0 20px;">
-                                <li>Rescission of contested decision</li>
-                                <li>Specific performance of obligations</li>
-                                <li>Compensation (generally limited to 3 years' basic salary)</li>
-                                <li>Coverage of reasonable costs</li>
-                            </ul>
-                            <div class="alert alert-warning">
-                                <strong>Important:</strong> Filing with Tribunal does NOT suspend execution of the contested decision. Tribunal judgments are final and binding.
-                            </div>
-                            <button class="btn-primary" onclick="navigatorStep('final-resolution')" style="margin-top: 15px;">Complete Process</button>
-                        </div>
-                    `;
-                    updateStepTracker(5);
-                    break;
-                    
-                case 'final-resolution':
-                    content.innerHTML = `
-                        <div class="info-panel">
-                            <h3>🎯 Final Resolution</h3>
-                            <p>You've reached the final stages of the administrative review process.</p>
-                        </div>
-                        <div class="process-card">
-                            <h4>Possible Outcomes:</h4>
-                            <ul style="margin: 10px 0 0 20px;">
-                                <li><strong>Favorable Decision:</strong> Your concerns are addressed and remedy provided</li>
-                                <li><strong>Partial Resolution:</strong> Some issues resolved, others may require further action</li>
-                                <li><strong>Unfavorable Decision:</strong> Decision upheld, limited further options</li>
-                            </ul>
-                            <h4 style="margin-top: 20px;">Important Reminders:</h4>
-                            <ul style="margin: 10px 0 0 20px;">
-                                <li>Keep detailed records of all proceedings</li>
-                                <li>Understand your rights under any final decision</li>
-                                <li>Consider lessons learned for future situations</li>
-                            </ul>
-                            <button class="btn-primary" onclick="navigatorStep('restart')" style="margin-top: 15px;">Start New Navigation</button>
-                        </div>
-                    `;
-                    updateStepTracker(5);
-                    break;
-                    
                 case 'ombuds-consult':
                     content.innerHTML = `
                         <div class="info-panel">
@@ -2245,7 +1790,7 @@
                             </ul>
                             
                             <div class="alert alert-warning">
-                                <strong>⏰ Time Reminder:</strong> Remember that your 45-day deadline for formal review still runs from when you received the original decision, not from your Ombudsperson consultation.
+                                <strong>⏰ Time Reminder:</strong> Remember that your 45-calendar-day deadline for formal review still runs from when you received the original decision, not from your Ombudsperson consultation.
                             </div>
                         </div>
                         
@@ -2269,7 +1814,7 @@
                         <div class="process-card">
                             <h4>⚠️ Critical Deadline Reminder:</h4>
                             <div class="alert alert-warning">
-                                <strong>You have 45 days from receiving the original decision to submit a formal review request.</strong> This deadline does NOT pause while you consider your options.
+                                <strong>You have 45 calendar days from receiving the original decision to submit a formal review request.</strong> This deadline does NOT pause while you consider your options.
                             </div>
                             
                             <h4 style="margin-top: 20px;">Your Options Moving Forward:</h4>
@@ -2299,6 +1844,466 @@
                     updateStepTracker(2);
                     break;
                     
+                case 'opec-mediation-consult':
+                    content.innerHTML = `
+                        <div class="info-panel">
+                            <h3>🤝 OPEC Workplace Mediation Services</h3>
+                            <p>Since June 2022, the Office of Professional Ethics and Conduct (OPEC) offers external professional workplace mediation - a powerful tool for resolving workplace concerns early and amicably.</p>
+                        </div>
+                        <div class="process-card">
+                            <h4>🎯 What Makes OPEC Mediation Special?</h4>
+                            <ul style="margin: 10px 0 0 20px;">
+                                <li><strong>Professional external mediators:</strong> Independent, neutral third parties</li>
+                                <li><strong>Completely free service:</strong> No cost to any staff member</li>
+                                <li><strong>Purely voluntary:</strong> All parties must agree to participate</li>
+                                <li><strong>Confidential and safe:</strong> Private environment for honest discussion</li>
+                                <li><strong>Flexible process:</strong> Adapted to your specific workplace concern</li>
+                                <li><strong>Available to all:</strong> ADB and ADBI staff regardless of level or location</li>
+                            </ul>
+                            
+                            <h4 style="margin-top: 20px;">🔄 How OPEC Mediation Works:</h4>
+                            <ol style="margin: 10px 0 0 20px;">
+                                <li><strong>Request mediation:</strong> Contact OPEC to request mediation services</li>
+                                <li><strong>Agreement to participate:</strong> All parties must voluntarily agree</li>
+                                <li><strong>Professional mediation:</strong> Independent mediator facilitates discussion</li>
+                                <li><strong>Safe communication:</strong> Neutral space for listening and being heard</li>
+                                <li><strong>Mutual resolution:</strong> Work toward mutually acceptable solutions</li>
+                            </ol>
+                            
+                            <h4 style="margin-top: 20px;">✨ Why Choose OPEC Mediation?</h4>
+                            <div style="background: #e8f5e8; border-left: 4px solid #4caf50; padding: 15px; margin: 10px 0; border-radius: 0 8px 8px 0;">
+                                <ul style="margin: 0; padding-left: 20px;">
+                                    <li>Most participants gain greater understanding of situations</li>
+                                    <li>High success rate in reaching agreements</li>
+                                    <li>High satisfaction with the mediation process</li>
+                                    <li>Transforms relationships and improves communication</li>
+                                    <li>Gives staff control over resolution of workplace issues</li>
+                                    <li>Prevents small differences from becoming big problems</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="alert alert-warning">
+                                <strong>⏰ Time Management:</strong> Remember that your formal review deadlines (45 calendar days for standard decisions, 30 calendar days for disciplinary measures) continue during mediation. Plan accordingly!
+                            </div>
+                            
+                            <div class="decision-tree">
+                                <div class="decision-question">After using OPEC mediation services, what was the outcome?</div>
+                                <div class="decision-options">
+                                    <button class="decision-btn" onclick="navigatorStep('opec-mediation-resolved')">Issue was resolved through OPEC mediation</button>
+                                    <button class="decision-btn" onclick="navigatorStep('opec-to-formal')">Mediation unsuccessful - need formal review process</button>
+                                    <button class="decision-btn" onclick="navigatorStep('opec-need-more-time')">Need more time to consider options</button>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    updateStepTracker(2);
+                    break;
+                    
+                case 'opec-mediation-resolved':
+                    content.innerHTML = `
+                        <div class="alert alert-success">
+                            <h3>✅ Issue Resolved Through OPEC Mediation!</h3>
+                            <p>Outstanding! OPEC's professional workplace mediation services successfully helped resolve your workplace concern.</p>
+                        </div>
+                        <div class="process-card">
+                            <h4>🎯 Advantages of OPEC Mediation Resolution:</h4>
+                            <ul style="margin: 10px 0 0 20px;">
+                                <li><strong>Professional guidance:</strong> Expert mediator facilitated the process</li>
+                                <li><strong>Relationship transformation:</strong> Improved communication and understanding</li>
+                                <li><strong>Confidential resolution:</strong> Private, safe space for honest discussion</li>
+                                <li><strong>Staff empowerment:</strong> You maintained control over the resolution</li>
+                                <li><strong>Early intervention:</strong> Resolved concern before escalation</li>
+                                <li><strong>No formal record:</strong> Avoided formal grievance procedures</li>
+                                <li><strong>Sustainable solution:</strong> Built on mutual understanding and agreement</li>
+                            </ul>
+                            
+                            <div class="alert alert-success">
+                                <strong>🤝 Success Story:</strong> You've experienced firsthand how professional mediation can transform workplace relationships and create lasting solutions. This approach often leads to stronger working relationships and better communication going forward.
+                            </div>
+                            
+                            <div class="alert alert-info">
+                                <strong>💡 Remember:</strong> OPEC mediation is always available for future workplace concerns. This positive experience shows the value of early intervention through professional mediation services.
+                            </div>
+                            
+                            <button class="btn-primary" onclick="navigatorStep('restart')" style="margin-top: 15px;">Start New Navigation</button>
+                        </div>
+                    `;
+                    updateStepTracker(5);
+                    break;
+                    
+                case 'opec-to-formal':
+                    content.innerHTML = `
+                        <div class="info-panel">
+                            <h3>📋 Proceed to Formal Review Process After OPEC Mediation</h3>
+                            <p>While OPEC mediation didn't resolve your issue, the process may have provided valuable insights. You can now proceed with the formal administrative review process.</p>
+                        </div>
+                        <div class="process-card">
+                            <h4>✅ Your Rights Remain Protected:</h4>
+                            <ul style="margin: 10px 0 0 20px;">
+                                <li><strong>No impact on formal rights:</strong> OPEC mediation doesn't affect your formal review rights</li>
+                                <li><strong>Confidentiality maintained:</strong> Information from mediation cannot be used against you</li>
+                                <li><strong>Deadlines unchanged:</strong> Original deadlines still apply (45 days from decision received)</li>
+                                <li><strong>Full access preserved:</strong> All formal procedures remain available</li>
+                                <li><strong>Insights gained:</strong> Better understanding from mediation process</li>
+                            </ul>
+                            
+                            <h4 style="margin-top: 20px;">💡 Value of the Mediation Experience:</h4>
+                            <div style="background: #f0f8ff; border-left: 4px solid #2196f3; padding: 15px; margin: 10px 0; border-radius: 0 8px 8px 0;">
+                                <ul style="margin: 0; padding-left: 20px;">
+                                    <li>Greater understanding of all perspectives involved</li>
+                                    <li>Clearer identification of core issues</li>
+                                    <li>Better preparation for formal procedures if needed</li>
+                                    <li>Demonstrated good-faith effort to resolve informally</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="alert alert-warning">
+                                <strong>⏰ Time Reminder:</strong> Your formal review deadline still runs from when you received the original decision, not from when mediation concluded.
+                            </div>
+                        </div>
+                        
+                        <div class="decision-tree">
+                            <div class="decision-question">👥 To determine your formal review path - who is your immediate supervisor?</div>
+                            <div class="decision-options">
+                                <button class="decision-btn" onclick="navigatorStep('senior-supervisor')">Executive Director, Alternate Executive Director, President, or Vice President</button>
+                                <button class="decision-btn" onclick="navigatorStep('regular-supervisor')">Other supervisor/manager</button>
+                            </div>
+                        </div>
+                    `;
+                    updateStepTracker(2);
+                    break;
+                    
+                case 'opec-need-more-time':
+                    content.innerHTML = `
+                        <div class="info-panel">
+                            <h3>⏱️ Considering Options After OPEC Mediation</h3>
+                            <p>Taking time to reflect on the mediation experience and consider your next steps is important, but be mindful of formal review deadlines.</p>
+                        </div>
+                        <div class="process-card">
+                            <div class="alert alert-warning" style="margin: 0 0 20px 0;">
+                                <strong>⚠️ DEADLINE REMINDER:</strong><br>
+                                Your formal review deadlines continue to run from when you received the original decision:<br>
+                                • <strong>45 calendar days</strong> for standard administrative decisions<br>
+                                • <strong>30 calendar days</strong> for disciplinary measures
+                            </div>
+                            
+                            <h4>🎯 Reflecting on Your OPEC Mediation Experience:</h4>
+                            <ul style="margin: 10px 0 0 20px;">
+                                <li><strong>What insights did you gain?</strong> Better understanding of the situation</li>
+                                <li><strong>What communication improved?</strong> Enhanced dialogue between parties</li>
+                                <li><strong>What issues remain unresolved?</strong> Core concerns that need formal review</li>
+                                <li><strong>What relationships were affected?</strong> Impact on working relationships</li>
+                            </ul>
+                            
+                            <h4 style="margin-top: 20px;">🔄 Your Remaining Options:</h4>
+                            <ul style="margin: 10px 0 0 20px;">
+                                <li><strong>Proceed with formal review:</strong> Submit formal request within deadline</li>
+                                <li><strong>Try additional mediation:</strong> Request follow-up mediation sessions</li>
+                                <li><strong>Consult Ombudsperson:</strong> Get additional perspective on options</li>
+                                <li><strong>Accept the situation:</strong> Choose not to pursue further action</li>
+                                <li><strong>Seek legal advice:</strong> Consult with staff council legal advisor</li>
+                            </ul>
+                            
+                            <div class="alert alert-info">
+                                <strong>💡 Recommendation:</strong> Use the Timeline Calculator to see exactly how much time remains for formal procedures, and consider how the mediation experience informs your next steps.
+                            </div>
+                            
+                            <div class="decision-tree">
+                                <div class="decision-question">What would you like to do next?</div>
+                                <div class="decision-options">
+                                    <button class="decision-btn" onclick="navigatorStep('opec-to-formal')">Proceed with formal review process</button>
+                                    <button class="decision-btn" onclick="showTab('timeline', document.querySelector('[data-tab=timeline]'))">Check my deadlines in Timeline Calculator</button>
+                                    <button class="decision-btn" onclick="navigatorStep('restart')">Start over with new situation</button>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    updateStepTracker(2);
+                    break;
+                    
+                case 'conciliation':
+                    content.innerHTML = `
+                        <div class="info-panel">
+                            <h3>🤝 Compulsory Conciliation Process</h3>
+                            <p>Conciliation involves a neutral third party helping both sides reach a mutually acceptable solution. This is a mandatory step for most staff members.</p>
+                        </div>
+                        <div class="process-card">
+                            <h4>Step-by-Step Process:</h4>
+                            <ol style="margin: 10px 0 0 20px;">
+                                <li><strong>Submit Request:</strong> Written request to Director, HR Business Partners Division (BPHP) within 45 calendar days</li>
+                                <li><strong>Include Copies to:</strong> Head of Department/Office responsible for the decision and concerned Director within BPMSD</li>
+                                <li><strong>Conciliator Selection:</strong> Choose from external list within 15 calendar days</li>
+                                <li><strong>Conciliation Meetings:</strong> Process completed within 15 calendar days (extendable by agreement)</li>
+                                <li><strong>Outcome:</strong> Settlement agreement or unsuccessful conciliation statement</li>
+                            </ol>
+                            <h4 style="margin-top: 20px;">Required Information in Request:</h4>
+                            <ul style="margin: 10px 0 0 20px;">
+                                <li>Identify the contested decision</li>
+                                <li>Grounds for review (abuse of discretion, discrimination, abuse of process, improper procedures)</li>
+                                <li>Relief/remedy sought</li>
+                            </ul>
+                            <div class="alert alert-warning">
+                                <strong>Important:</strong> Statements made during conciliation cannot be used as evidence in later proceedings.
+                            </div>
+                            <button class="btn-primary" onclick="navigatorStep('conciliation-outcome')" style="margin-top: 15px;">Continue to Conciliation Outcome</button>
+                        </div>
+                    `;
+                    updateStepTracker(3);
+                    break;
+                    
+                case 'conciliation-outcome':
+                    content.innerHTML = `
+                        <div class="decision-tree">
+                            <div class="decision-question">🎯 What was the outcome of your conciliation process?</div>
+                            <div class="decision-options">
+                                <button class="decision-btn" onclick="navigatorStep('conciliation-successful')">Successful - Issue Resolved</button>
+                                <button class="decision-btn" onclick="navigatorStep('conciliation-unsuccessful')">Unsuccessful - No Agreement Reached</button>
+                            </div>
+                        </div>
+                        <div class="alert alert-info">
+                            <strong>Note:</strong> The conciliator will provide a written statement on the outcome within 15 days of the process completion.
+                        </div>
+                    `;
+                    updateStepTracker(3);
+                    break;
+                    
+                case 'conciliation-successful':
+                    content.innerHTML = `
+                        <div class="alert alert-success">
+                            <h3>✅ Conciliation Successful!</h3>
+                            <p>Congratulations! Your issue has been resolved through the conciliation process.</p>
+                        </div>
+                        <div class="process-card">
+                            <h4>What Happens Next:</h4>
+                            <ul style="margin: 10px 0 0 20px;">
+                                <li>Settlement agreement is signed and documented</li>
+                                <li>Both parties implement the agreed resolution</li>
+                                <li>Case is closed - no further review needed</li>
+                                <li>Keep records of the agreement for your files</li>
+                            </ul>
+                            <button class="btn-primary" onclick="navigatorStep('restart')" style="margin-top: 15px;">Start New Navigation</button>
+                        </div>
+                    `;
+                    updateStepTracker(5);
+                    break;
+                    
+                case 'conciliation-unsuccessful':
+                    content.innerHTML = `
+                        <div class="info-panel">
+                            <h3>📋 Proceed to Administrative Review</h3>
+                            <p>Since conciliation was unsuccessful, you can now proceed to the administrative review stage.</p>
+                        </div>
+                        <div class="process-card">
+                            <h4>Next Steps for Administrative Review:</h4>
+                            <ol style="margin: 10px 0 0 20px;">
+                                <li><strong>Submit Request:</strong> Written request to Director General, BPMSD within <strong>15 calendar days</strong> of receiving conciliator's statement</li>
+                                <li><strong>Scope Limitation:</strong> Review is limited to matters identified during conciliation</li>
+                                <li><strong>Response Timeline:</strong> Director General, BPMSD has 30 calendar days to respond</li>
+                                <li><strong>Exhaustion:</strong> Administrative review is exhausted upon receiving response or after 30 days</li>
+                            </ol>
+                            <div class="alert alert-warning">
+                                <strong>Critical:</strong> You only have 15 days from receiving the conciliator's statement to submit your administrative review request!
+                            </div>
+                            <button class="btn-primary" onclick="navigatorStep('admin-review-outcome')" style="margin-top: 15px;">Continue to Administrative Review</button>
+                        </div>
+                    `;
+                    updateStepTracker(4);
+                    break;
+                    
+                case 'direct-review':
+                    content.innerHTML = `
+                        <div class="info-panel">
+                            <h3>📋 Direct Administrative Review (Senior Supervisor Exception)</h3>
+                            <p>Because your immediate supervisor is a senior executive, you can bypass mandatory conciliation and proceed directly to administrative review.</p>
+                        </div>
+                        <div class="process-card">
+                            <h4>Direct Review Process:</h4>
+                            <ol style="margin: 10px 0 0 20px;">
+                                <li><strong>Submit Request:</strong> Written request to Director General, BPMSD within <strong>45 calendar days</strong> of receiving the decision</li>
+                                <li><strong>Required Information:</strong> Identify decision, grounds for review, supporting documentation, remedy sought</li>
+                                <li><strong>Response Timeline:</strong> Director General, BPMSD has 30 calendar days to respond</li>
+                                <li><strong>Exhaustion:</strong> Review is exhausted upon receiving response or after 30 calendar days</li>
+                            </ol>
+                            <h4 style="margin-top: 20px;">Grounds for Review:</h4>
+                            <ul style="margin: 10px 0 0 20px;">
+                                <li>Abuse of discretion</li>
+                                <li>Discriminatory decision</li>
+                                <li>Abuse of process</li>
+                                <li>Proper procedures not followed</li>
+                            </ul>
+                            <button class="btn-primary" onclick="navigatorStep('admin-review-outcome')" style="margin-top: 15px;">Continue to Administrative Review</button>
+                        </div>
+                    `;
+                    updateStepTracker(4);
+                    break;
+                    
+                case 'admin-review-outcome':
+                    content.innerHTML = `
+                        <div class="decision-tree">
+                            <div class="decision-question">📋 What was the outcome of your administrative review?</div>
+                            <div class="decision-options">
+                                <button class="decision-btn" onclick="navigatorStep('admin-review-satisfied')">Satisfied with the Decision</button>
+                                <button class="decision-btn" onclick="navigatorStep('admin-review-appeal')">Not Satisfied - Want to Appeal</button>
+                                <button class="decision-btn" onclick="navigatorStep('no-response')">No Response Received (30 days passed)</button>
+                            </div>
+                        </div>
+                        <div class="alert alert-info">
+                            <strong>Administrative Review Exhausted:</strong> Administrative review is considered exhausted when you receive the Director General, BPMSD's response OR when 30 days have passed without a response.
+                        </div>
+                    `;
+                    updateStepTracker(4);
+                    break;
+                    
+                case 'admin-review-satisfied':
+                    content.innerHTML = `
+                        <div class="alert alert-success">
+                            <h3>✅ Administrative Review Successful!</h3>
+                            <p>Great! Your administrative review has resulted in a satisfactory resolution.</p>
+                        </div>
+                        <div class="process-card">
+                            <h4>What Happens Next:</h4>
+                            <ul style="margin: 10px 0 0 20px;">
+                                <li>Decision is implemented as per the review outcome</li>
+                                <li>Keep documentation of the resolution</li>
+                                <li>Monitor implementation of any corrective actions</li>
+                                <li>Case is closed</li>
+                            </ul>
+                            <button class="btn-primary" onclick="navigatorStep('restart')" style="margin-top: 15px;">Start New Navigation</button>
+                        </div>
+                    `;
+                    updateStepTracker(5);
+                    break;
+                    
+                case 'admin-review-appeal':
+                case 'no-response':
+                    content.innerHTML = `
+                        <div class="info-panel">
+                            <h3>⚖️ Appeal to Appeals Committee</h3>
+                            <p>Since administrative review has been exhausted and you're not satisfied, you can now appeal to the Appeals Committee.</p>
+                        </div>
+                        <div class="process-card">
+                            <h4>Appeal Process:</h4>
+                            <ol style="margin: 10px 0 0 20px;">
+                                <li><strong>Submit Appeal:</strong> Through Secretary, Appeals Committee within <strong>15 calendar days</strong> of administrative review exhaustion</li>
+                                <li><strong>Committee Review:</strong> Three-member panel considers your appeal</li>
+                                <li><strong>Committee Report:</strong> Submitted to President within 30 days</li>
+                                <li><strong>Presidential Decision:</strong> Final decision on your appeal</li>
+                            </ol>
+                            <h4 style="margin-top: 20px;">Appeals Committee Composition:</h4>
+                            <ul style="margin: 10px 0 0 20px;">
+                                <li>Staff members appointed by the President</li>
+                                <li>Members nominated by Staff Council</li>
+                                <li>Panel of three (Chairperson + two Members)</li>
+                            </ul>
+                            <div class="alert alert-warning">
+                                <strong>Important:</strong> Submission of appeal does NOT suspend implementation of the contested decision.
+                            </div>
+                            <button class="btn-primary" onclick="navigatorStep('appeals-outcome')" style="margin-top: 15px;">Continue to Appeals Outcome</button>
+                        </div>
+                    `;
+                    updateStepTracker(4);
+                    break;
+                    
+                case 'appeals-outcome':
+                    content.innerHTML = `
+                        <div class="decision-tree">
+                            <div class="decision-question">🏛️ What was the outcome of the Presidential decision on your appeal?</div>
+                            <div class="decision-options">
+                                <button class="decision-btn" onclick="navigatorStep('appeal-satisfied')">Satisfied with Presidential Decision</button>
+                                <button class="decision-btn" onclick="navigatorStep('tribunal-application')">Not Satisfied - Apply to Administrative Tribunal</button>
+                            </div>
+                        </div>
+                        <div class="alert alert-info">
+                            <strong>Final Internal Step:</strong> The Presidential decision represents the final internal review within ADB. The Administrative Tribunal is external and independent.
+                        </div>
+                    `;
+                    updateStepTracker(4);
+                    break;
+                    
+                case 'appeal-satisfied':
+                    content.innerHTML = `
+                        <div class="alert alert-success">
+                            <h3>✅ Appeal Successful!</h3>
+                            <p>Excellent! The Presidential decision on your appeal has resolved your concerns.</p>
+                        </div>
+                        <div class="process-card">
+                            <h4>What Happens Next:</h4>
+                            <ul style="margin: 10px 0 0 20px;">
+                                <li>Presidential decision is implemented</li>
+                                <li>Any remedial actions are carried out</li>
+                                <li>Keep documentation of the final decision</li>
+                                <li>Internal review process is complete</li>
+                            </ul>
+                            <button class="btn-primary" onclick="navigatorStep('restart')" style="margin-top: 15px;">Start New Navigation</button>
+                        </div>
+                    `;
+                    updateStepTracker(5);
+                    break;
+                    
+                case 'tribunal-application':
+                    content.innerHTML = `
+                        <div class="info-panel">
+                            <h3>⚖️ Administrative Tribunal Application</h3>
+                            <p>The Administrative Tribunal is the final level of review - an independent external body with binding decision-making authority.</p>
+                        </div>
+                        <div class="process-card">
+                            <h4>Tribunal Application Requirements:</h4>
+                            <ul style="margin: 10px 0 0 20px;">
+                                <li><strong>Deadline:</strong> <span style="color: #dc3545; font-weight: bold;">90 calendar days</span> from receipt of Presidential decision on appeal</li>
+                                <li><strong>Prerequisite:</strong> Must have exhausted all internal remedies</li>
+                                <li><strong>Filing:</strong> In accordance with Tribunal's Statute and Rules of Procedure</li>
+                                <li><strong>Fees:</strong> Tribunal fees may apply</li>
+                                <li><strong>Representation:</strong> Legal representation permitted</li>
+                            </ul>
+                            <h4 style="margin-top: 20px;">Tribunal Process:</h4>
+                            <ul style="margin: 10px 0 0 20px;">
+                                <li>Five-member tribunal (panels of three)</li>
+                                <li>Independent and impartial members</li>
+                                <li>Formal legal proceedings</li>
+                                <li>Written and oral submissions</li>
+                                <li><strong>Final and binding</strong> judgments</li>
+                            </ul>
+                            <h4 style="margin-top: 20px;">Possible Tribunal Orders:</h4>
+                            <ul style="margin: 10px 0 0 20px;">
+                                <li>Rescission of contested decision</li>
+                                <li>Specific performance of obligations</li>
+                                <li>Compensation (generally limited to 3 years' basic salary)</li>
+                                <li>Coverage of reasonable costs</li>
+                            </ul>
+                            <div class="alert alert-warning">
+                                <strong>Important:</strong> Filing with Tribunal does NOT suspend execution of the contested decision. Tribunal judgments are final and binding.
+                            </div>
+                            <button class="btn-primary" onclick="navigatorStep('final-resolution')" style="margin-top: 15px;">Complete Process</button>
+                        </div>
+                    `;
+                    updateStepTracker(5);
+                    break;
+                    
+                case 'final-resolution':
+                    content.innerHTML = `
+                        <div class="info-panel">
+                            <h3>🎯 Final Resolution</h3>
+                            <p>You've reached the final stages of the administrative review process.</p>
+                        </div>
+                        <div class="process-card">
+                            <h4>Possible Outcomes:</h4>
+                            <ul style="margin: 10px 0 0 20px;">
+                                <li><strong>Favorable Decision:</strong> Your concerns are addressed and remedy provided</li>
+                                <li><strong>Partial Resolution:</strong> Some issues resolved, others may require further action</li>
+                                <li><strong>Unfavorable Decision:</strong> Decision upheld, limited further options</li>
+                            </ul>
+                            <h4 style="margin-top: 20px;">Important Reminders:</h4>
+                            <ul style="margin: 10px 0 0 20px;">
+                                <li>Keep detailed records of all proceedings</li>
+                                <li>Understand your rights under any final decision</li>
+                                <li>Consider lessons learned for future situations</li>
+                            </ul>
+                            <button class="btn-primary" onclick="navigatorStep('restart')" style="margin-top: 15px;">Start New Navigation</button>
+                        </div>
+                    `;
+                    updateStepTracker(5);
+                    break;
+                    
                 case 'restart':
                     content.innerHTML = `
                         <div class="decision-tree">
@@ -2317,12 +2322,18 @@
                     
                 default:
                     content.innerHTML = `
-                        <div class="alert alert-warning">
-                            <h3>⚠️ Navigation Error</h3>
-                            <p>Sorry, there was an issue with the navigation. Please try again or start over.</p>
-                            <button class="btn-primary" onclick="navigatorStep('restart')" style="margin-top: 15px;">Start Over</button>
+                        <div class="decision-tree">
+                            <div class="decision-question">🔍 What type of decision are you seeking to review?</div>
+                            <div class="decision-options">
+                                <button class="decision-btn" onclick="navigatorStep('disciplinary-measure')">Disciplinary Measure (AO 2.04)</button>
+                                <button class="decision-btn" onclick="navigatorStep('other-decision')">Other Administrative Decision</button>
+                            </div>
+                        </div>
+                        <div class="alert alert-info">
+                            <strong>📋 Important:</strong> Disciplinary measures have a special appeals process that can bypass the standard administrative review procedure.
                         </div>
                     `;
+                    updateStepTracker(1);
                     break;
             }
         }
@@ -2340,76 +2351,50 @@
             const deadlines = document.getElementById('calculated-deadlines');
             
             if (decisionType === 'disciplinary') {
-                // Disciplinary measure deadlines
                 const directAppealDeadline = new Date(startDate);
                 directAppealDeadline.setDate(startDate.getDate() + 30);
-                
-                const tribunalDeadline = new Date(directAppealDeadline);
-                tribunalDeadline.setDate(directAppealDeadline.getDate() + 90);
                 
                 deadlines.innerHTML = `
                     <div class="alert alert-warning">
                         <h4>🚨 Disciplinary Measure Deadlines:</h4>
                         <ul style="margin: 10px 0 0 20px;">
                             <li><strong style="color: #dc3545;">Direct Appeal to Appeals Committee:</strong> By ${directAppealDeadline.toLocaleDateString()}</li>
-                            <li><strong>Administrative Tribunal (after Appeals Committee decision):</strong> By ${tribunalDeadline.toLocaleDateString()}</li>
                         </ul>
-                        <div style="background: #fff3e0; border: 1px solid #ff9800; border-radius: 5px; padding: 10px; margin-top: 10px;">
-                            <strong>⚡ Special Process:</strong> For disciplinary measures, you can appeal directly to the Appeals Committee within <strong>30 days</strong> (shorter than standard 45-day deadline). You do NOT need to go through conciliation or administrative review first.
-                        </div>
                         <p style="margin-top: 10px; color: #dc3545;"><strong>⚠️ All deadlines are strict and cannot be extended!</strong></p>
                     </div>
                 `;
             } else {
-                // Standard administrative decision deadlines - showing complete process
-                const conciliationDeadline = new Date(startDate);
-                conciliationDeadline.setDate(startDate.getDate() + 45);
+                // Standard Administrative Decision - 4 predictable deadlines
+                const conciliationRequestDeadline = new Date(startDate);
+                conciliationRequestDeadline.setDate(startDate.getDate() + 45);
                 
-                const conciliatorSelectionDeadline = new Date(conciliationDeadline);
-                conciliatorSelectionDeadline.setDate(conciliationDeadline.getDate() + 15);
+                const conciliatorSelectionDeadline = new Date(conciliationRequestDeadline);
+                conciliatorSelectionDeadline.setDate(conciliationRequestDeadline.getDate() + 15);
                 
-                // Conciliation process takes 15 days, then admin review request has 15 days
-                const adminReviewRequestDeadline = new Date(conciliatorSelectionDeadline);
-                adminReviewRequestDeadline.setDate(conciliatorSelectionDeadline.getDate() + 30); // 15 days conciliation + 15 days to request
+                // Assuming conciliation starts after conciliator selection and takes 15 days
+                const conciliationEndDate = new Date(conciliatorSelectionDeadline);
+                conciliationEndDate.setDate(conciliatorSelectionDeadline.getDate() + 15);
                 
-                // DG BPMSD has 30 days to respond to admin review
-                const adminReviewResponseDeadline = new Date(adminReviewRequestDeadline);
-                adminReviewResponseDeadline.setDate(adminReviewRequestDeadline.getDate() + 30);
+                const adminReviewRequestDeadline = new Date(conciliationEndDate);
+                adminReviewRequestDeadline.setDate(conciliationEndDate.getDate() + 15);
                 
-                // Appeal to Appeals Committee within 15 days of admin review exhaustion
-                const appealDeadline = new Date(adminReviewResponseDeadline);
-                appealDeadline.setDate(adminReviewResponseDeadline.getDate() + 15);
+                // Admin review response takes 30 days
+                const adminReviewResponseDate = new Date(adminReviewRequestDeadline);
+                adminReviewResponseDate.setDate(adminReviewRequestDeadline.getDate() + 30);
                 
-                // Tribunal within 90 days of final Appeals Committee decision (approx 30 days for committee process)
-                const tribunalDeadline = new Date(appealDeadline);
-                tribunalDeadline.setDate(appealDeadline.getDate() + 120); // 30 days for committee + 90 days to tribunal
+                const appealSubmissionDeadline = new Date(adminReviewResponseDate);
+                appealSubmissionDeadline.setDate(adminReviewResponseDate.getDate() + 15);
                 
                 deadlines.innerHTML = `
                     <div class="alert alert-info">
-                        <h4>📅 Standard Administrative Decision - Complete Timeline:</h4>
-                        <div style="background: #f8f9fa; border-radius: 8px; padding: 15px; margin: 10px 0;">
-                            <h5 style="color: #495057; margin: 0 0 10px 0;">📋 Phase 1: Conciliation Process</h5>
-                            <ul style="margin: 0 0 15px 20px;">
-                                <li><strong>Conciliation Request:</strong> By ${conciliationDeadline.toLocaleDateString()}</li>
-                                <li><strong>Conciliator Selection:</strong> By ${conciliatorSelectionDeadline.toLocaleDateString()}</li>
-                            </ul>
-                            
-                            <h5 style="color: #495057; margin: 0 0 10px 0;">📋 Phase 2: Administrative Review</h5>
-                            <ul style="margin: 0 0 15px 20px;">
-                                <li><strong>Admin Review Request (to DG BPMSD):</strong> By ${adminReviewRequestDeadline.toLocaleDateString()}</li>
-                                <li><strong>Admin Review Response Due:</strong> By ${adminReviewResponseDeadline.toLocaleDateString()}</li>
-                            </ul>
-                            
-                            <h5 style="color: #495057; margin: 0 0 10px 0;">📋 Phase 3: Appeals & Tribunal</h5>
-                            <ul style="margin: 0 0 0 20px;">
-                                <li><strong>Appeal to Appeals Committee:</strong> By ${appealDeadline.toLocaleDateString()}</li>
-                                <li><strong>Administrative Tribunal (final option):</strong> By ${tribunalDeadline.toLocaleDateString()}</li>
-                            </ul>
-                        </div>
-                        
-                        <div style="background: #e3f2fd; border: 1px solid #2196f3; border-radius: 5px; padding: 10px; margin-top: 10px;">
-                            <strong>📋 Standard Process:</strong> For non-disciplinary decisions, you must generally go through conciliation first (unless you have a senior-level supervisor), then administrative review to DG BPMSD, then appeals, before reaching the Tribunal.
-                        </div>
+                        <h4>📅 Standard Administrative Decision - Key Deadlines:</h4>
+                        <ul style="margin: 10px 0 0 20px;">
+                            <li><strong>Conciliation Request:</strong> By ${conciliationRequestDeadline.toLocaleDateString()} <span style="color: #6c757d;">(45 days from decision)</span></li>
+                            <li><strong>Conciliator Selection:</strong> By ${conciliatorSelectionDeadline.toLocaleDateString()} <span style="color: #6c757d;">(15 days after request)</span></li>
+                            <li><strong>Admin Review Request:</strong> By ${adminReviewRequestDeadline.toLocaleDateString()} <span style="color: #6c757d;">(15 days after conciliation statement)</span></li>
+                            <li><strong>Appeal Submission:</strong> By ${appealSubmissionDeadline.toLocaleDateString()} <span style="color: #6c757d;">(15 days after admin review exhaustion)</span></li>
+                        </ul>
+                        <p style="margin-top: 15px; color: #6c757d; font-size: 14px;"><strong>Note:</strong> These calculations assume standard timelines. Actual dates may vary based on when you receive formal responses at each stage. Deadlines beyond Appeal Submission are not shown because they depend on how long the Appeals Committee and other bodies take to respond, which cannot be predicted in advance.</p>
                         <p style="margin-top: 10px; color: #dc3545;"><strong>⚠️ All deadlines are strict and cannot be extended!</strong></p>
                     </div>
                 `;
