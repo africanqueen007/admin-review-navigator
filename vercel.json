@@ -1,0 +1,7 @@
+{
+  "version": 2,
+  "routes": [
+    { "src": "/petition", "dest": "/petition.html" },
+    { "src": "/", "dest": "/index.html" }
+  ]
+}
