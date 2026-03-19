@@ -341,6 +341,74 @@
     margin-top: 16px;
   }
 
+  /* ── Signatories ── */
+  .signatories-card {
+    background: #fff;
+    border: 1px solid #dde4eb;
+    margin-top: 24px;
+    padding: 36px 56px;
+  }
+  .sig-title {
+    font-family: Arial, sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    color: #007DB7;
+    margin-bottom: 20px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid #e8eff5;
+  }
+  .sig-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+    font-family: Arial, sans-serif;
+  }
+  .sig-table th {
+    text-align: left;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    color: #5a7080;
+    padding: 6px 10px;
+    border-bottom: 2px solid #007DB7;
+    background: #f0f7fc;
+  }
+  .sig-table td {
+    padding: 8px 10px;
+    border-bottom: 1px solid #e8eff5;
+    color: #1a2a3a;
+    vertical-align: middle;
+  }
+  .sig-table tr:last-child td { border-bottom: none; }
+  .sig-table tr:hover td { background: #f8fbfd; }
+  .sig-num {
+    font-size: 11px;
+    color: #5a7080;
+    font-weight: 700;
+    width: 32px;
+  }
+  .mode-badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 2px;
+    font-size: 11px;
+    font-weight: 600;
+  }
+  .mode-car    { background: #e8f4fb; color: #00507a; }
+  .mode-moto   { background: #fff3e0; color: #7a4000; }
+  .mode-public { background: #e8f7e0; color: #2a5a0a; }
+  .mode-tnvs   { background: #f3e8fb; color: #4a0078; }
+  .mode-mixed  { background: #fbeee8; color: #7a2a00; }
+  .mode-walk   { background: #e8fbe8; color: #005a20; }
+  .empty-state {
+    text-align: center;
+    padding: 32px;
+    font-family: Arial, sans-serif;
+    font-size: 13px;
+    color: #8a9daa;
+  }
+
   /* ── Footer ── */
   .footer {
     max-width: 860px;
@@ -355,7 +423,7 @@
 
   @media (max-width: 640px) {
     .page, .footer { padding-left: 16px; padding-right: 16px; }
-    .petition-card, .form-card { padding: 28px 20px; }
+    .petition-card, .form-card, .signatories-card { padding: 28px 20px; }
     .form-grid { grid-template-columns: 1fr; }
     .commute-grid { grid-template-columns: 1fr 1fr; }
     .adb-header-inner { padding: 14px 16px; }
@@ -397,7 +465,7 @@
     </div>
 
     <div class="petition-subject">Petition for Extended Work-from-Home Arrangements</div>
-    <div class="petition-subtitle">In Response to the Escalating Fuel Price Crisis Resulting from the Iran Conflict &nbsp;·&nbsp; March 2026</div>
+    <div class="petition-subtitle">In Response to the Escalating Fuel Price Crisis &nbsp;·&nbsp; Updated 19 March 2026</div>
 
     <div class="petition-body">
 
@@ -408,12 +476,13 @@
       <p>The Iran conflict, which began in late February 2026, has caused immediate and severe disruption to global oil markets. The Philippines imports approximately 90% of its petroleum supply and is among the most exposed economies in Asia to this shock. The impact on domestic pump prices has been swift and escalating:</p>
 
       <div class="evidence-box">
-        <strong>Documented fuel price increases as of March 2026 (Source: Department of Energy, Philippines)</strong>
+        <strong>Documented fuel price increases (Source: Department of Energy, Philippines; Philippine News Agency, 16&ndash;17 March 2026)</strong>
         <ul>
-          <li>Gasoline has increased for <strong>9 consecutive weeks</strong>, including a &#x20B1;1.90/L hike on 3 March 2026 alone.</li>
-          <li>Year-to-date, gasoline is up <strong>&#x20B1;6.70 per liter</strong>, diesel up <strong>&#x20B1;9.40 per liter</strong>, and kerosene up <strong>&#x20B1;7.70 per liter</strong> compared to the same period last year.</li>
-          <li>The DOE has confirmed a further projected increase of up to <strong>&#x20B1;10.43/L for gasoline</strong> and <strong>&#x20B1;19.62/L for diesel</strong> in the next scheduled adjustment.</li>
-          <li>Industry analysts and the DOE warn that retail gasoline could approach <strong>&#x20B1;90 per liter</strong> if global crude sustains above $100 per barrel.</li>
+          <li>Gasoline has increased for <strong>11 consecutive weeks</strong> since the start of 2026, with double-digit weekly hikes beginning the week of 10 March 2026.</li>
+          <li>For the week of 17&ndash;23 March 2026, the DOE confirmed increases of <strong>&#x20B1;12.90&ndash;&#x20B1;16.60/L for gasoline</strong>, <strong>&#x20B1;20.40&ndash;&#x20B1;23.90/L for diesel</strong>, and <strong>&#x20B1;6.90&ndash;&#x20B1;8.90/L for kerosene</strong>.</li>
+          <li>Following these adjustments, pump prices stand at up to <strong>&#x20B1;91.60/L for gasoline</strong>, <strong>&#x20B1;114.90/L for diesel</strong>, and <strong>&#x20B1;143.79/L for kerosene</strong>.</li>
+          <li>Year-to-date net increases now stand at approximately <strong>&#x20B1;36.30/L for gasoline</strong>, <strong>&#x20B1;57.55/L for diesel</strong>, and <strong>&#x20B1;55.10/L for kerosene</strong> &mdash; the highest weekly movements in Philippine recorded history.</li>
+          <li>Energy Secretary Sharon Garin confirmed at a DOE press briefing on 16 March 2026 that domestic supply remains adequate through end-April, but that price volatility will continue as long as Middle East tensions persist.</li>
         </ul>
       </div>
 
@@ -421,18 +490,19 @@
 
       <h3>II. The Direct Financial Impact on Staff</h3>
 
-      <p>The daily cost of commuting to and from ADB headquarters has risen sharply across all transport modes. For private car users, a 20-kilometer one-way commute now costs approximately &#x20B1;290&ndash;&#x20B1;360 per day in fuel alone at current prices &mdash; rising to over &#x20B1;500 at projected near-term prices &mdash; before tolls, parking, and vehicle wear. For staff relying on public transport, the current fare structure imposes a round-trip cost of &#x20B1;100&ndash;&#x20B1;300 per day depending on distance, with further increases anticipated as transport operators absorb higher fuel input costs.</p>
+      <p>The daily cost of commuting to ADB headquarters has escalated to historic levels. With gasoline now reaching <strong>&#x20B1;91.60 per liter</strong> as of 17 March 2026 and diesel exceeding <strong>&#x20B1;114.90 per liter</strong>, a private car user commuting 20 kilometers one-way now faces a fuel cost of approximately <strong>&#x20B1;366 per day</strong> in fuel alone &mdash; before tolls, parking, and vehicle wear. This is more than double what the same commute cost at the start of 2026. For staff relying on public transport, current fares impose a round-trip cost of &#x20B1;100&ndash;&#x20B1;300 per day, with the Land Transportation Franchising and Regulatory Board having approved fare hikes of up to 19% for buses and jeepneys effective March 2026 to reflect higher diesel input costs.</p>
 
       <div class="evidence-box">
-        <strong>Indicative daily commute cost savings from one WFH day (based on verified fare and fuel data, March 2026)</strong>
+        <strong>Indicative daily commute cost savings from one WFH day (based on verified DOE fuel prices and LTFRB fare data, 17&ndash;19 March 2026)</strong>
         <ul>
-          <li><strong>Private car, 10 km one-way:</strong> fuel saving of approximately &#x20B1;140&ndash;&#x20B1;180 per day at current and projected prices, plus tolls, parking, and vehicle wear.</li>
-          <li><strong>Private car, 20 km one-way:</strong> fuel saving of approximately &#x20B1;280&ndash;&#x20B1;360 per day, plus additional operating costs.</li>
-          <li><strong>Private car, 30 km one-way:</strong> fuel saving of approximately &#x20B1;420&ndash;&#x20B1;540 per day, plus additional operating costs.</li>
-          <li><strong>Public transport, 10 km one-way:</strong> full round-trip fare saving of &#x20B1;100 per day.</li>
-          <li><strong>Public transport, 20 km one-way:</strong> full round-trip fare saving of &#x20B1;200 per day.</li>
-          <li><strong>Public transport, 30 km one-way:</strong> full round-trip fare saving of &#x20B1;300 per day.</li>
+          <li><strong>Private car, 10 km one-way:</strong> fuel saving of approximately <strong>&#x20B1;183/day</strong> at &#x20B1;91.60/L and 10 km/L city efficiency, plus tolls, parking, and vehicle wear.</li>
+          <li><strong>Private car, 20 km one-way:</strong> fuel saving of approximately <strong>&#x20B1;366/day</strong>, plus additional operating costs.</li>
+          <li><strong>Private car, 30 km one-way:</strong> fuel saving of approximately <strong>&#x20B1;550/day</strong>, plus additional operating costs.</li>
+          <li><strong>Public transport, 10 km one-way:</strong> full round-trip fare saving of <strong>&#x20B1;100/day</strong>.</li>
+          <li><strong>Public transport, 20 km one-way:</strong> full round-trip fare saving of <strong>&#x20B1;200/day</strong>.</li>
+          <li><strong>Public transport, 30 km one-way:</strong> full round-trip fare saving of <strong>&#x20B1;300/day</strong>.</li>
         </ul>
+        <p style="margin-top:8px;">Note: Fuel costs are now more than double what they were at the start of 2026. These figures will continue to rise as the week of 17&ndash;23 March 2026 hikes take full effect.</p>
       </div>
 
       <h3>III. The Net Cost of Working from Home</h3>
@@ -450,7 +520,7 @@
         <p style="margin-top:8px;">The internet router, which runs continuously regardless of work location, carries zero marginal WFH cost. Even in the highest-cost scenario &mdash; non-inverter air conditioning running for the full workday &mdash; the incremental electricity cost of &#x20B1;99 remains well below the commute savings at all distance brackets above 5 kilometers, yielding a clear and positive net financial benefit for the staff member in all realistic scenarios.</p>
       </div>
 
-      <p>The net financial benefit of a single additional WFH day per week therefore ranges from <strong>&#x20B1;1 to over &#x20B1;1,100 per day</strong> depending on commute mode, distance, and home cooling arrangements &mdash; and this benefit will grow with each further fuel price increase.</p>
+      <p>At current prices, the net financial benefit of a single additional WFH day per week now ranges from <strong>&#x20B1;84 to over &#x20B1;1,600 per day</strong> depending on commute mode, distance, and home cooling arrangements. Each successive weekly fuel price increase widens this gap further.</p>
 
       <h3>IV. Policy Context and Precedent</h3>
 
@@ -646,6 +716,14 @@
 
 </div><!-- /page -->
 
+  <!-- ── SIGNATORIES TABLE ── -->
+  <div class="signatories-card">
+    <div class="sig-title" id="sig-title">Signatories — 0 staff members</div>
+    <div id="sig-container">
+      <div class="empty-state">Loading signatures…</div>
+    </div>
+  </div><!-- /signatories-card -->
+
 <div class="footer">
   ADB Staff Council &nbsp;·&nbsp; Petition filed March 2026 &nbsp;·&nbsp; This petition is submitted under the auspices of the ADB Staff Council in accordance with its mandate to represent staff interests. All personal data collected is used solely for the purpose of this petition and will be presented in aggregate form as part of the Staff Council's submission.
 </div>
@@ -712,7 +790,6 @@
 
   // ── Render stats + table ──
   function renderAll(sigs) {
-    // Update stats bar only — names are not shown publicly
     document.getElementById('stat-total').textContent = sigs.length;
     const depts = new Set(sigs.map(s => s.dept)).size;
     document.getElementById('stat-depts').textContent = depts;
@@ -728,6 +805,49 @@
     segs.forEach((seg,i) => {
       seg.style.width = ((modeCounts[modeKeys[i]]||0)/total*100).toFixed(1)+'%';
     });
+
+    document.getElementById('sig-title').textContent =
+      'Signatories — ' + sigs.length + ' staff member' + (sigs.length !== 1 ? 's' : '');
+
+    if (!sigs.length) {
+      document.getElementById('sig-container').innerHTML =
+        '<div class="empty-state">No signatures yet. Be the first to sign.</div>';
+      return;
+    }
+
+    const modeBadge = {
+      'Personal car':     'mode-car',
+      'Motorcycle':       'mode-moto',
+      'Public transport': 'mode-public',
+      'TNVS/Grab':        'mode-tnvs',
+      'Mixed':            'mode-mixed',
+      'Walk/Bike':        'mode-walk'
+    };
+
+    let rows = '';
+    sigs.slice().reverse().forEach((s, i) => {
+      const n     = sigs.length - i;
+      const badge = modeBadge[s.mode] || 'mode-mixed';
+      rows += '<tr>'
+        + '<td class="sig-num">' + n + '</td>'
+        + '<td><strong>' + esc(s.name) + '</strong></td>'
+        + '<td>' + esc(s.dept) + '</td>'
+        + '<td>' + esc(s.district||'—') + '</td>'
+        + '<td><span class="mode-badge ' + badge + '">' + esc(s.mode||'—') + '</span></td>'
+        + '<td>' + (s.distance ? s.distance + ' km' : '—') + '</td>'
+        + '<td style="font-size:11px;color:#5a7080">' + esc(s.date||'') + '</td>'
+        + '</tr>';
+    });
+
+    document.getElementById('sig-container').innerHTML =
+      '<table class="sig-table"><thead><tr>'
+      + '<th>#</th><th>Name</th><th>Department</th><th>Home area</th>'
+      + '<th>Commute mode</th><th>Distance</th><th>Date signed</th>'
+      + '</tr></thead><tbody>' + rows + '</tbody></table>';
+  }
+
+  function esc(str) {
+    return (str||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
   }
 
   // ── Submit ──
