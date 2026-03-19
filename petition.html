@@ -703,13 +703,7 @@
 
   <!-- ── SIGNATORIES TABLE ── -->
   <div class="signatories-card">
-    <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:20px;padding-bottom:14px;border-bottom:1px solid #e8eff5;">
-      <div class="sig-title" id="sig-title" style="margin:0;padding:0;border:none;">Signatories — 0 staff members</div>
-      <button onclick="adminDownload()" id="dl-btn" style="background:#007DB7;color:#fff;border:none;padding:9px 20px;font-family:Arial,sans-serif;font-size:13px;font-weight:700;letter-spacing:0.3px;cursor:pointer;border-radius:2px;display:flex;align-items:center;gap:8px;">
-        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7 1v8M4 6l3 3 3-3M2 11h10" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        Download all data (CSV)
-      </button>
-    </div>
+    <div class="sig-title" id="sig-title">Signatories — 0 staff members</div>
     <div id="sig-container">
       <div class="empty-state">No signatures yet. Be the first to sign.</div>
     </div>
@@ -907,66 +901,6 @@
       btn.disabled    = false;
       btn.textContent = 'Add My Signature';
     }
-  }
-
-  // ── Admin password (SHA-256 of your chosen password) ──
-  // Current password hash is for: StaffCouncil2026
-  // To change: run in browser console: crypto.subtle.digest('SHA-256', new TextEncoder().encode('yourpassword'))
-  //            .then(b => console.log([...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join('')))
-  const ADMIN_HASH = '56784ae1ea27a7d448adf7faf9e7566cd0cbd866ac451b33f2e856831a32699c';
-
-  let _adminVerified = false;
-
-  async function hashPassword(pwd) {
-    const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(pwd));
-    return [...new Uint8Array(buf)].map(x => x.toString(16).padStart(2,'0')).join('');
-  }
-
-  async function adminDownload() {
-    if (!_adminVerified) {
-      const pwd = window.prompt('Enter admin password to download data:');
-      if (!pwd) return;
-      const hash = await hashPassword(pwd);
-      if (hash !== ADMIN_HASH) {
-        alert('Incorrect password.');
-        return;
-      }
-      _adminVerified = true;
-    }
-    downloadCSV();
-  }
-
-  // ── Download CSV ──
-  async function downloadCSV() {
-    const allSigs = await loadSigs();
-    if (!allSigs.length) { alert('No signatures to download yet.'); return; }
-
-    const headers = ['No.','Full Name','Department / Division','Staff Grade',
-      'Home District / Area','Primary Commute Mode','One-Way Distance (km)',
-      'Est. Daily Commute Cost (PHP)','Personal Comment','Date Signed'];
-
-    const q = v => {
-      if (!v && v !== 0) return '';
-      const s = String(v);
-      return (s.includes(',') || s.includes('"') || s.includes('\n'))
-        ? '"' + s.replace(/"/g,'""') + '"' : s;
-    };
-
-    const rows = allSigs.map((s,i) => [
-      i+1, q(s.name), q(s.dept), q(s.grade), q(s.district),
-      q(s.mode), q(s.distance), q(s.cost), q(s.comment), q(s.date)
-    ].join(','));
-
-    const csv  = [headers.map(q).join(','), ...rows].join('\r\n');
-    const blob = new Blob([csv], {type:'text/csv;charset=utf-8;'});
-    const blobUrl = URL.createObjectURL(blob);
-    const a    = document.createElement('a');
-    a.href     = blobUrl;
-    a.download = 'ADB_WFH_Petition_' + new Date().toISOString().slice(0,10) + '.csv';
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(blobUrl);
   }
 
   // ── Init ──
