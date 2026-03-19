@@ -721,6 +721,8 @@
 </div>
 
 <script>
+  const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzJxZMT8gVwA52Y1vO26ykbYapDt43aJmHtQH2myPus0fbEJ6XEFUZBnXjZwTuNEv6R/exec';
+
   // Set date
   document.getElementById('doc-date').textContent =
     new Date().toLocaleDateString('en-PH', {day:'numeric', month:'long', year:'numeric'});
@@ -743,7 +745,34 @@
     'Walk/Bike':        'mode-walk'
   };
 
-  // Highlight selected commute option
+  // ── API helpers (plain fetch — Apps Script returns JSON with CORS) ──
+  async function callAPI(params) {
+    const url = SCRIPT_URL + '?' + new URLSearchParams(params).toString();
+    const res = await fetch(url, { redirect: 'follow' });
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    const text = await res.text();
+    try {
+      return JSON.parse(text);
+    } catch(e) {
+      throw new Error('Bad JSON: ' + text.slice(0, 100));
+    }
+  }
+
+  async function loadSigs() {
+    try {
+      const data = await callAPI({ action: 'get' });
+      return data.success ? (data.signatures || []) : [];
+    } catch(e) {
+      console.error('loadSigs error:', e);
+      return [];
+    }
+  }
+
+  async function addSigToServer(sig) {
+    return await callAPI({ action: 'add', ...sig });
+  }
+
+  // ── Commute option highlight ──
   document.querySelectorAll('.commute-option input[type="radio"]').forEach(r => {
     r.addEventListener('change', () => {
       document.querySelectorAll('.commute-option').forEach(o => o.classList.remove('selected'));
@@ -751,32 +780,8 @@
     });
   });
 
-  // ─── Configuration ───────────────────────────────────────────────────────────
-  // Paste your Google Apps Script Web App URL here after deployment:
-  const SCRIPT_URL = 'PASTE_YOUR_SCRIPT_URL_HERE';
-  // ─────────────────────────────────────────────────────────────────────────────
-
-  // ── API helpers ──
-  async function loadSigs() {
-    try {
-      const res = await fetch(SCRIPT_URL + '?action=get');
-      const data = await res.json();
-      return data.success ? data.signatures : [];
-    } catch(e) {
-      console.error('Failed to load signatures:', e);
-      return [];
-    }
-  }
-
-  async function addSigToServer(sig) {
-    const params = new URLSearchParams({ action: 'add', ...sig });
-    const res = await fetch(SCRIPT_URL + '?' + params.toString());
-    return await res.json();
-  }
-
   // ── Render stats + table ──
   function renderAll(sigs) {
-    // Stats
     document.getElementById('stat-total').textContent = sigs.length;
     const depts = new Set(sigs.map(s => s.dept)).size;
     document.getElementById('stat-depts').textContent = depts;
@@ -784,19 +789,17 @@
     document.getElementById('stat-km').textContent = dists.length
       ? Math.round(dists.reduce((a,b)=>a+b,0)/dists.length) : '—';
 
-    // Breakdown bar
     const modeCounts = {};
     sigs.forEach(s => { if(s.mode) modeCounts[s.mode] = (modeCounts[s.mode]||0)+1; });
     const total = sigs.length || 1;
-    const segs = document.querySelectorAll('.breakdown-seg');
+    const segs  = document.querySelectorAll('.breakdown-seg');
     const modeKeys = ['Personal car','Public transport','TNVS/Grab','Motorcycle','Mixed','Walk/Bike'];
     segs.forEach((seg,i) => {
       seg.style.width = ((modeCounts[modeKeys[i]]||0)/total*100).toFixed(1)+'%';
     });
 
-    // Signatories table
     document.getElementById('sig-title').textContent =
-      `Signatories — ${sigs.length} staff member${sigs.length !== 1 ? 's' : ''}`;
+      'Signatories — ' + sigs.length + ' staff member' + (sigs.length !== 1 ? 's' : '');
 
     if (!sigs.length) {
       document.getElementById('sig-container').innerHTML =
@@ -806,35 +809,24 @@
 
     let rows = '';
     sigs.slice().reverse().forEach((s, i) => {
-      const n = sigs.length - i;
+      const n     = sigs.length - i;
       const badge = modeBadge[s.mode] || 'mode-mixed';
-      const distText = s.distance ? s.distance + ' km' : '—';
-      rows += `<tr>
-        <td class="sig-num">${n}</td>
-        <td><strong>${esc(s.name)}</strong></td>
-        <td>${esc(s.dept)}</td>
-        <td>${esc(s.district||'—')}</td>
-        <td><span class="mode-badge ${badge}">${esc(s.mode||'—')}</span></td>
-        <td>${distText}</td>
-        <td style="font-size:11px;color:#5a7080">${s.date||''}</td>
-      </tr>`;
+      rows += '<tr>'
+        + '<td class="sig-num">' + n + '</td>'
+        + '<td><strong>' + esc(s.name) + '</strong></td>'
+        + '<td>' + esc(s.dept) + '</td>'
+        + '<td>' + esc(s.district||'—') + '</td>'
+        + '<td><span class="mode-badge ' + badge + '">' + esc(s.mode||'—') + '</span></td>'
+        + '<td>' + (s.distance ? s.distance+' km' : '—') + '</td>'
+        + '<td style="font-size:11px;color:#5a7080">' + esc(s.date||'') + '</td>'
+        + '</tr>';
     });
 
-    document.getElementById('sig-container').innerHTML = `
-      <table class="sig-table">
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>Name</th>
-            <th>Department</th>
-            <th>Home area</th>
-            <th>Commute mode</th>
-            <th>Distance</th>
-            <th>Date signed</th>
-          </tr>
-        </thead>
-        <tbody>${rows}</tbody>
-      </table>`;
+    document.getElementById('sig-container').innerHTML =
+      '<table class="sig-table"><thead><tr>'
+      + '<th>#</th><th>Name</th><th>Department</th><th>Home area</th>'
+      + '<th>Commute mode</th><th>Distance</th><th>Date signed</th>'
+      + '</tr></thead><tbody>' + rows + '</tbody></table>';
   }
 
   function esc(str) {
@@ -850,8 +842,10 @@
     const distance = document.getElementById('f-distance').value.trim();
     const declared = document.getElementById('f-declare').checked;
     const errEl    = document.getElementById('error-msg');
+    const btn      = document.getElementById('submit-btn');
 
     errEl.style.display = 'none';
+    document.getElementById('success-msg').style.display = 'none';
 
     const errs = [];
     if (!name)     errs.push('Full name is required.');
@@ -867,116 +861,90 @@
       return;
     }
 
-    const btn = document.getElementById('submit-btn');
-    btn.disabled = true;
+    btn.disabled   = true;
     btn.textContent = 'Saving…';
 
-    const sigs = await loadSigs();
+    try {
+      const result = await addSigToServer({
+        name,
+        dept,
+        grade:    document.getElementById('f-grade').value || '',
+        district,
+        mode:     modeEl.value,
+        distance,
+        cost:     document.getElementById('f-cost').value || '',
+        comment:  document.getElementById('f-comment').value.trim() || ''
+      });
 
-    const sig = {
-      name, dept,
-      grade:    document.getElementById('f-grade').value || '',
-      district,
-      mode:     modeEl.value,
-      distance: distance,
-      cost:     document.getElementById('f-cost').value || '',
-      comment:  document.getElementById('f-comment').value.trim() || ''
-    };
+      if (result.error === 'duplicate') {
+        errEl.textContent = 'A signature from "' + name + '" already exists. If this is an error, please contact the Staff Council.';
+        errEl.style.display = 'block';
+        btn.disabled    = false;
+        btn.textContent = 'Add My Signature';
+        return;
+      }
+      if (!result.success) {
+        throw new Error(result.error || 'Unknown error');
+      }
 
-    const result = await addSigToServer(sig);
+      renderAll(result.signatures || []);
+      document.getElementById('success-msg').style.display = 'block';
+      btn.textContent = '✓ Signed';
 
-    if (!result.success && result.error === 'duplicate') {
-      errEl.textContent = 'A signature from "' + name + '" already exists. If this is an error, please contact the Staff Council.';
+      ['f-name','f-dept','f-distance','f-cost','f-comment'].forEach(id => {
+        document.getElementById(id).value = '';
+      });
+      document.getElementById('f-grade').value = '';
+      document.getElementById('f-district').value = '';
+      document.querySelectorAll('input[name="commute"]').forEach(r => r.checked = false);
+      document.querySelectorAll('.commute-option').forEach(o => o.classList.remove('selected'));
+      document.getElementById('f-declare').checked = false;
+
+    } catch(e) {
+      errEl.textContent = 'Error saving: ' + e.message + '. Please try again.';
       errEl.style.display = 'block';
-      btn.disabled = false;
+      btn.disabled    = false;
       btn.textContent = 'Add My Signature';
-      return;
     }
-    if (!result.success) {
-      errEl.textContent = 'There was a problem saving your signature. Please try again or contact the Staff Council.';
-      errEl.style.display = 'block';
-      btn.disabled = false;
-      btn.textContent = 'Add My Signature';
-      return;
-    }
-
-    renderAll(result.signatures);
-
-    document.getElementById('success-msg').style.display = 'block';
-    btn.textContent = '✓ Signed';
-
-    // Clear form
-    ['f-name','f-dept','f-distance','f-cost','f-comment'].forEach(id => {
-      document.getElementById(id).value = '';
-    });
-    document.getElementById('f-grade').value = '';
-    document.getElementById('f-district').value = '';
-    document.querySelectorAll('input[name="commute"]').forEach(r => r.checked = false);
-    document.querySelectorAll('.commute-option').forEach(o => o.classList.remove('selected'));
-    document.getElementById('f-declare').checked = false;
   }
 
   // ── Download CSV ──
   async function downloadCSV() {
-    const sigs = await loadSigs();
-    if (!sigs.length) {
-      alert('No signatures to download yet.');
-      return;
-    }
+    const allSigs = await loadSigs();
+    if (!allSigs.length) { alert('No signatures to download yet.'); return; }
 
-    const headers = [
-      'No.',
-      'Full Name',
-      'Department / Division',
-      'Staff Grade',
-      'Home District / Area',
-      'Primary Commute Mode',
-      'One-Way Distance (km)',
-      'Est. Daily Commute Cost (PHP round-trip)',
-      'Personal Comment',
-      'Date Signed'
-    ];
+    const headers = ['No.','Full Name','Department / Division','Staff Grade',
+      'Home District / Area','Primary Commute Mode','One-Way Distance (km)',
+      'Est. Daily Commute Cost (PHP)','Personal Comment','Date Signed'];
 
-    const escape = val => {
-      if (val === undefined || val === null || val === '') return '';
-      const str = String(val);
-      if (str.includes(',') || str.includes('"') || str.includes('\n') || str.includes('\r')) {
-        return '"' + str.replace(/"/g, '""') + '"';
-      }
-      return str;
+    const q = v => {
+      if (!v && v !== 0) return '';
+      const s = String(v);
+      return (s.includes(',') || s.includes('"') || s.includes('\n'))
+        ? '"' + s.replace(/"/g,'""') + '"' : s;
     };
 
-    const rows = sigs.map((s, i) => [
-      i + 1,
-      escape(s.name),
-      escape(s.dept),
-      escape(s.grade),
-      escape(s.district),
-      escape(s.mode),
-      escape(s.distance),
-      escape(s.cost),
-      escape(s.comment || ''),
-      escape(s.date)
+    const rows = allSigs.map((s,i) => [
+      i+1, q(s.name), q(s.dept), q(s.grade), q(s.district),
+      q(s.mode), q(s.distance), q(s.cost), q(s.comment), q(s.date)
     ].join(','));
 
-    const csv = [headers.map(escape).join(','), ...rows].join('\r\n');
-    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    const dateStr = new Date().toISOString().slice(0, 10);
-    a.href = url;
-    a.download = 'ADB_Staff_Council_WFH_Petition_Signatures_' + dateStr + '.csv';
+    const csv  = [headers.map(q).join(','), ...rows].join('\r\n');
+    const blob = new Blob([csv], {type:'text/csv;charset=utf-8;'});
+    const blobUrl = URL.createObjectURL(blob);
+    const a    = document.createElement('a');
+    a.href     = blobUrl;
+    a.download = 'ADB_WFH_Petition_' + new Date().toISOString().slice(0,10) + '.csv';
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
-    URL.revokeObjectURL(url);
+    URL.revokeObjectURL(blobUrl);
   }
 
   // ── Init ──
   (async () => {
-    // Show loading state
     document.getElementById('sig-container').innerHTML =
-      '<div class="empty-state" style="color:var(--color-text-secondary,#5a7080)">Loading signatures…</div>';
+      '<div class="empty-state">Loading signatures…</div>';
     const sigs = await loadSigs();
     renderAll(sigs);
   })();
