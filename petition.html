@@ -341,74 +341,6 @@
     margin-top: 16px;
   }
 
-  /* ── Signatories ── */
-  .signatories-card {
-    background: #fff;
-    border: 1px solid #dde4eb;
-    margin-top: 24px;
-    padding: 36px 56px;
-  }
-  .sig-title {
-    font-family: Arial, sans-serif;
-    font-size: 15px;
-    font-weight: 700;
-    color: #007DB7;
-    margin-bottom: 20px;
-    padding-bottom: 14px;
-    border-bottom: 1px solid #e8eff5;
-  }
-  .sig-table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 13px;
-    font-family: Arial, sans-serif;
-  }
-  .sig-table th {
-    text-align: left;
-    font-size: 11px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.6px;
-    color: #5a7080;
-    padding: 6px 10px;
-    border-bottom: 2px solid #007DB7;
-    background: #f0f7fc;
-  }
-  .sig-table td {
-    padding: 8px 10px;
-    border-bottom: 1px solid #e8eff5;
-    color: #1a2a3a;
-    vertical-align: middle;
-  }
-  .sig-table tr:last-child td { border-bottom: none; }
-  .sig-table tr:hover td { background: #f8fbfd; }
-  .sig-num {
-    font-size: 11px;
-    color: #5a7080;
-    font-weight: 700;
-    width: 32px;
-  }
-  .mode-badge {
-    display: inline-block;
-    padding: 2px 8px;
-    border-radius: 2px;
-    font-size: 11px;
-    font-weight: 600;
-  }
-  .mode-car    { background: #e8f4fb; color: #00507a; }
-  .mode-moto   { background: #fff3e0; color: #7a4000; }
-  .mode-public { background: #e8f7e0; color: #2a5a0a; }
-  .mode-tnvs   { background: #f3e8fb; color: #4a0078; }
-  .mode-mixed  { background: #fbeee8; color: #7a2a00; }
-  .mode-walk   { background: #e8fbe8; color: #005a20; }
-  .empty-state {
-    text-align: center;
-    padding: 32px;
-    font-family: Arial, sans-serif;
-    font-size: 13px;
-    color: #8a9daa;
-  }
-
   /* ── Footer ── */
   .footer {
     max-width: 860px;
@@ -423,15 +355,22 @@
 
   @media (max-width: 640px) {
     .page, .footer { padding-left: 16px; padding-right: 16px; }
-    .petition-card, .form-card, .signatories-card { padding: 28px 20px; }
+    .petition-card, .form-card { padding: 28px 20px; }
     .form-grid { grid-template-columns: 1fr; }
     .commute-grid { grid-template-columns: 1fr 1fr; }
     .adb-header-inner { padding: 14px 16px; }
     .stats-bar { gap: 16px; }
   }
 </style>
+
 </head>
 <body>
+    
+    
+  </div>
+</div>
+
+
 
 <div class="adb-header">
   <div class="adb-header-inner">
@@ -702,11 +641,7 @@
   </div>
 
   <!-- ── SIGNATORIES TABLE ── -->
-  <div class="signatories-card">
-    <div class="sig-title" id="sig-title">Signatories — 0 staff members</div>
-    <div id="sig-container">
-      <div class="empty-state">No signatures yet. Be the first to sign.</div>
-    </div>
+  
   </div>
 
 </div><!-- /page -->
@@ -777,6 +712,7 @@
 
   // ── Render stats + table ──
   function renderAll(sigs) {
+    // Update stats bar only — names are not shown publicly
     document.getElementById('stat-total').textContent = sigs.length;
     const depts = new Set(sigs.map(s => s.dept)).size;
     document.getElementById('stat-depts').textContent = depts;
@@ -792,40 +728,6 @@
     segs.forEach((seg,i) => {
       seg.style.width = ((modeCounts[modeKeys[i]]||0)/total*100).toFixed(1)+'%';
     });
-
-    document.getElementById('sig-title').textContent =
-      'Signatories — ' + sigs.length + ' staff member' + (sigs.length !== 1 ? 's' : '');
-
-    if (!sigs.length) {
-      document.getElementById('sig-container').innerHTML =
-        '<div class="empty-state">No signatures yet. Be the first to sign.</div>';
-      return;
-    }
-
-    let rows = '';
-    sigs.slice().reverse().forEach((s, i) => {
-      const n     = sigs.length - i;
-      const badge = modeBadge[s.mode] || 'mode-mixed';
-      rows += '<tr>'
-        + '<td class="sig-num">' + n + '</td>'
-        + '<td><strong>' + esc(s.name) + '</strong></td>'
-        + '<td>' + esc(s.dept) + '</td>'
-        + '<td>' + esc(s.district||'—') + '</td>'
-        + '<td><span class="mode-badge ' + badge + '">' + esc(s.mode||'—') + '</span></td>'
-        + '<td>' + (s.distance ? s.distance+' km' : '—') + '</td>'
-        + '<td style="font-size:11px;color:#5a7080">' + esc(s.date||'') + '</td>'
-        + '</tr>';
-    });
-
-    document.getElementById('sig-container').innerHTML =
-      '<table class="sig-table"><thead><tr>'
-      + '<th>#</th><th>Name</th><th>Department</th><th>Home area</th>'
-      + '<th>Commute mode</th><th>Distance</th><th>Date signed</th>'
-      + '</tr></thead><tbody>' + rows + '</tbody></table>';
-  }
-
-  function esc(str) {
-    return (str||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
   }
 
   // ── Submit ──
@@ -905,8 +807,7 @@
 
   // ── Init ──
   (async () => {
-    document.getElementById('sig-container').innerHTML =
-      '<div class="empty-state">Loading signatures…</div>';
+
     const sigs = await loadSigs();
     renderAll(sigs);
   })();
