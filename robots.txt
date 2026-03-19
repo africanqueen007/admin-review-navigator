@@ -1,0 +1,15 @@
+User-agent: *
+Disallow: /petition
+
+# Block common AI training crawlers specifically
+User-agent: GPTBot
+Disallow: /
+
+User-agent: Google-Extended
+Disallow: /
+
+User-agent: CCBot
+Disallow: /
+
+User-agent: anthropic-ai
+Disallow: /
