@@ -751,18 +751,27 @@
     });
   });
 
-  // ── Storage helpers ──
+  // ─── Configuration ───────────────────────────────────────────────────────────
+  // Paste your Google Apps Script Web App URL here after deployment:
+  const SCRIPT_URL = 'PASTE_YOUR_SCRIPT_URL_HERE';
+  // ─────────────────────────────────────────────────────────────────────────────
+
+  // ── API helpers ──
   async function loadSigs() {
     try {
-      const r = await window.storage.get('petition_sigs', true);
-      return r ? JSON.parse(r.value) : [];
-    } catch { return []; }
+      const res = await fetch(SCRIPT_URL + '?action=get');
+      const data = await res.json();
+      return data.success ? data.signatures : [];
+    } catch(e) {
+      console.error('Failed to load signatures:', e);
+      return [];
+    }
   }
 
-  async function saveSigs(sigs) {
-    try {
-      await window.storage.set('petition_sigs', JSON.stringify(sigs), true);
-    } catch(e) { console.error(e); }
+  async function addSigToServer(sig) {
+    const params = new URLSearchParams({ action: 'add', ...sig });
+    const res = await fetch(SCRIPT_URL + '?' + params.toString());
+    return await res.json();
   }
 
   // ── Render stats + table ──
@@ -864,28 +873,34 @@
 
     const sigs = await loadSigs();
 
-    // Duplicate name check
-    if (sigs.some(s => s.name.toLowerCase() === name.toLowerCase())) {
-      errEl.textContent = 'A signature from "' + name + '" already exists. If this is an error, please contact the Staff Council.';
-      errEl.style.display = 'block';
-      btn.disabled = false;
-      btn.textContent = 'Add My Signature';
-      return;
-    }
-
-    sigs.push({
+    const sig = {
       name, dept,
       grade:    document.getElementById('f-grade').value || '',
       district,
       mode:     modeEl.value,
       distance: distance,
       cost:     document.getElementById('f-cost').value || '',
-      comment:  document.getElementById('f-comment').value.trim() || '',
-      date:     new Date().toLocaleDateString('en-PH', {day:'numeric', month:'short', year:'numeric'})
-    });
+      comment:  document.getElementById('f-comment').value.trim() || ''
+    };
 
-    await saveSigs(sigs);
-    renderAll(sigs);
+    const result = await addSigToServer(sig);
+
+    if (!result.success && result.error === 'duplicate') {
+      errEl.textContent = 'A signature from "' + name + '" already exists. If this is an error, please contact the Staff Council.';
+      errEl.style.display = 'block';
+      btn.disabled = false;
+      btn.textContent = 'Add My Signature';
+      return;
+    }
+    if (!result.success) {
+      errEl.textContent = 'There was a problem saving your signature. Please try again or contact the Staff Council.';
+      errEl.style.display = 'block';
+      btn.disabled = false;
+      btn.textContent = 'Add My Signature';
+      return;
+    }
+
+    renderAll(result.signatures);
 
     document.getElementById('success-msg').style.display = 'block';
     btn.textContent = '✓ Signed';
@@ -959,6 +974,9 @@
 
   // ── Init ──
   (async () => {
+    // Show loading state
+    document.getElementById('sig-container').innerHTML =
+      '<div class="empty-state" style="color:var(--color-text-secondary,#5a7080)">Loading signatures…</div>';
     const sigs = await loadSigs();
     renderAll(sigs);
   })();
